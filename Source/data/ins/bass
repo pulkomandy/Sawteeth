@@ -1,0 +1,32 @@
+// BASS
+// points - fadsr time-lev
+3
+0
+224
+6
+140
+7
+172
+// points - adsr time-lev
+1
+0
+236
+// filtermode, clipping
+1
+0
+// vibs, vibd, pwms, pwmd
+148
+12
+4
+47
+// res
+36
+// sps
+32
+// len - loop
+1
+0
+// track mask - note
+130
+36
+BASS

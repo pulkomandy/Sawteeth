@@ -1,0 +1,42 @@
+// BD
+// points - fadsr time-lev
+2
+0
+222
+1
+102
+// points - adsr time-lev
+4
+0
+254
+9
+138
+21
+84
+72
+70
+// filtermode, clipping
+2
+261
+// vibs, vibd, pwms, pwmd
+30
+3
+1
+1
+// res
+84
+// sps
+1
+// len - loop
+4
+3
+// track mask - note
+3
+100
+3
+98
+3
+96
+131
+36
+BD

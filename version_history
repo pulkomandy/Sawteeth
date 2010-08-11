@@ -1,0 +1,38 @@
+1.2 --------------------------------------------------------------------
+Fixed bugs:
+	When deleteing a channel volume controls are moved also.
+	Removed duplicate shortcuts (to Close and Optimise)
+	Changed behaviour of damping (previosly it wasn't 'synced')
+	New channels are zoomed as they should
+	Channels are unmuted before saving.
+
+Improvements:
+	Sinus waveform
+
+	Added low cpu, low quality waveforms:
+		Sinus with jitter
+		Triangle with jitter
+	
+	Optimized waveform generation
+
+	Right-side loop-point
+
+1.1 --------------------------------------------------------------------
+Fixed bugs:
+	Ugly memory leak in instrument editor ...
+	Error in copying damping in sequencer ...
+	Setting right filetype in R4.5
+	Marker is correct, looped one step too early in 1.0
+
+Improvements:
+	Insert and backspace in parteditor (thanks alex)
+	Transpose selections in sequencer (thanks stefan)
+	Sequencer scrolls when moving around
+	New effect 5x sets resonance (thanks alex)
+	Empty song at startup (thanks sefan)
+	When pressing enter on a part i sequencer Part-win is activated and focus is in tracker. (thanks tic)
+	The loop-point is moved accurate when cut & pasting in sequencer.
+	Main window is activated instead of mixwin at startup
+
+1.0 --------------------------------------------------------------------
+Initial release

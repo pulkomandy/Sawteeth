@@ -1,0 +1,221 @@
+<html><head><title>Sawteeth Documentation</title>
+</head>
+<body>
+
+<h1>SawTeeth Documentation (1.2)</h1>
+<p>
+I'm glad that you're interested in sawteeth (you are
+reading the readme you know).
+<p>
+Arvid Norberg developed big parts of the editor.<br>
+Most of the filtercode comes from Stefan H&aring;llen
+<p>
+If you find any error in any program or the
+manual please let me know, I even care about
+faulty grammar/spelling (I don't speak
+native English).<br>
+I am also interested in cool ideas and really cool
+features that you miss in the player or in the editor.
+<p>
+Mail to: <a href="mailto:c97jng@cs.umu.se">c97jng@cs.umu.se</a>
+<p>
+Sawteeth homepage is:<br>
+<a href="http://www.acc.umu.se/~bedev/software/sawteeth/">
+http://www.acc.umu.se/~bedev/software/sawteeth/</a><br>
+<p>
+
+
+
+<hr size=5>
+A Sawteeth song is made up by several pieces.
+Instruments are used in parts, who are used in
+channels, who are used in the song.
+<br>
+Hexadecimal and Decimal are used where seen fit,
+witch you easily could be tricked by.
+
+<p>
+I hope that most menu-items, buttons and textfields
+are self-explaining or explained in the GUI.
+</p>
+
+<h2>Sequencer</h2>
+<p>
+Not very intuitive controls I'm afraid. Not too
+much mouse support<br>
+Click a part to make it 'active'.
+<p>
+On the parts (the sqares) you see three numbers, the first is partnumber,
+the second is transpose and the last is damping.
+<p>
+
+<table>
+<tr><td><b>0-9</b></td><td>Enter partnumber (decimal)</td></tr>
+<tr><td><b>arrows</b></td><td>Navigate</td></tr>
+<tr><td><b>ctrl-arrows (up-down)</b></td><td>Transpose</td></tr>
+<tr><td><b>ctrl-arrows (left-right)</b></td><td>Change damping</td></tr>
+<tr><td><b>shift-arrows</b></td><td>Mark</td></tr>
+<tr><td><b>cmd-x</b></td><td>cut</td></tr>
+<tr><td><b>cmd-c</b></td><td>copy</td></tr>
+<tr><td><b>cmd-v</b></td><td>paste</td></tr>
+<tr><td><b>cmd-space</b></td><td>Play song</td></tr>
+<tr><td><b>l</b></td><td>Set left loop point</td></tr>
+<tr><td><b>r</b></td><td>Set right loop point</td></tr>
+<tr><td><b>enter</b></td><td>Open Parteditor</td></tr>
+
+</table>
+
+<h2>Part editor</h2>
+This is similar to old-skool trackers in many ways. NoiseTracker (all
+trackers) style keyboard.<p>
+
+<table>
+<tr><td><b> F1 - F12 </b></td><td> sets octave. </td></tr>
+<tr><td><b> Delete </b></td><td> zeroes the field you edit. </td></tr>
+<tr><td><b> Shift-Delete </b></td><td> zeres the whole line. </td></tr>
+<tr><td><b> Backspace </b></td><td> deletes the line above the current and moves everything below up one line.<br> </td></tr>
+<tr><td><b> Insert </b></td><td> moves everything below down one step and clears the current line. </td></tr>
+</table>
+
+<p>
+<h3>Fields are:</h3>
+<pre>00|b-6 2  0
+01|--- 0  0
+02|c-7 2  0
+03|b-6 0 97
+   |   | +- effect and argument (see below)
+   |   +--- instrumentnumber (hex)
+   +------- note and octave</pre>
+<h3>Effects</h3>
+Maybe more effects will be added in the future,
+please only use documented effects (wich should be easy since there are none).
+<p>
+Unlike older trackers sawteeth effects continues when you have started them.
+If you write a0 to lower the volume the volume decreases until the next note or other command that affects the volume (bx,cx)
+<p>
+
+<table>
+<tr><td align=right><b>0</b></td><td>	no effect				</td></tr>
+<tr><td align=right><b>1 x</b></td><td> glide pitch up			</td></tr>
+<tr><td align=right><b>2 x</b></td><td> glide pitch down		</td></tr>
+<tr><td align=right><b>3 x</b></td><td> glide pitch to note	(will glide to 0Hz if no note)	</td></tr>
+<tr><td align=right><b>4 x</b></td><td> set PWM offset			</td></tr>
+<tr><td align=right><b>5 x</b></td><td> set resonance (is not multiplicated width the reso setting in the instrument)			</td></tr>
+<tr><td align=right><b>7 x</b></td><td> glide filter closed		</td></tr>
+<tr><td align=right><b>8 x</b></td><td> glide filter open		</td></tr>
+<tr><td align=right><b>9 x</b></td><td> set filter				</td></tr>
+<tr><td align=right><b>a x</b></td><td> glide amp down			</td></tr>
+<tr><td align=right><b>b x</b></td><td> glide amp up			</td></tr>
+<tr><td align=right><b>c x</b></td><td> set amp					</td></tr>
+</table>
+
+
+<h2>Instrument editor</h2>
+A block scheme over the sound creation looks something like this: (boost is only used with clipping)
+<p>
+wave -> amplitude -> filter -> boost ->clipping
+<p>
+<h3>Envelope - editors</h3>
+There are two editors for curves (envelopes, like ADSR), one controlling
+amplitude and one the filters' cutoff-frequency.
+<p>
+The filtermodes low-pass(no res) and low-pass are of different type than the others,
+they use slightly less CPU. To save CPU,
+use no filter when you don't need to.
+<p>
+Currently there are two clipmodes, hard clip and sinus clip. Try the sinus clip for some WHACKO distortion. Please give me suggestions of more clipmodes.
+<p>
+At the bottom of the window there are sliders that control the lfo's for PWM (only Square) and Vibrato.
+<p>
+
+<h3>Tracker fields are:</h3>
+<pre>00|c-1 @ 2
+01|--- @ 0
+   |   | +-- waveform (see below)
+   |   +---- relative (bit, change state width space)
+   +-------- note and octave</pre>
+
+Below the tracker are three textgadgets: lenght, speed and loop.
+The number in the Speed-textgadget is PAL's per step.
+The number in the Loop-textgadget is the tracker-position to go when playing reached end.
+To not loop enter the last position in the tracker. 
+<h3>Waveforms</h3>
+<table>
+<tr><td><b>0</b></td><td> Hold </td></tr>
+<tr><td><b>1</b></td><td> Saw </td></tr>
+<tr><td><b>2</b></td><td> Square </td></tr>
+<tr><td><b>3</b></td><td> Triangle </td></tr>
+<tr><td><b>4</b></td><td> Noise </td></tr>
+<tr><td><b>5</b></td><td> Sine </td></tr>
+<tr><td><b>6</b></td><td> Triangle without interpolation (no big cpu gain)</td></tr>
+<tr><td><b>7</b></td><td> Sine without interpolation</td></tr>
+</table>
+
+<h2>Breakpoints</h2>
+This is only used by me so far, for inserting sync-information in songs.
+In the part-editor press the following keys. The breakpoints will be visible in the
+top of the sequencer vindow.
+<table>
+<tr><td><b>cmd-0 to cmd-9</b></td><td>insert breakpoint</td></tr>
+<tr><td><b>cmd-r</b></td><td>remove breakpoint</td></tr>
+</table>
+
+<h2>Tips n' tricks</h2>
+Please tell me some tips that I can add.
+<p>
+<ul>
+<li>
+	To make a song really small (in bytes):
+	<ul>
+	<li>
+		Be sure to use File->ExportRelease to save your completed song. 
+	</li>
+	<li>
+		Try to reuse parts as often as you
+		can, and try to make parts reusable.
+		A bassline can be reused most of the time
+		since you can transpose it.
+	</li>
+	<li>
+		Try to reuse instruments as often as you
+		can, and try to make them reusable. A great
+		bass sound can be an even cooler leadsound,
+		use part effects to make the the same
+		instrument sound different.
+	</li>
+	</ul>
+</li>
+<li>
+	To reduce audible clicks:
+	<ul>
+	<li>
+		When making arpeggio-tricks in an instrument, be careful
+		when using different waveforms in the same instrument, some
+		combinations can produce clicks.
+	</li>
+	</ul>
+<li>
+	To mute a channel, check the box to the left in the control window.
+</li>
+<li>
+	To hear only the part you're editing press cmd-space when a part-edit
+	window is focused.
+</li>
+<li>
+	Noise has got a frequency also. Use noise to create cool percussive effects.
+</li>
+<li>
+	You can change the volume on a part in the sequencer. (ctrl-leftarrow and ctrl-rightarrow)
+</li>
+<li>
+	When you are editing the amp and filter-cutoff-envelope,
+	remember that you can only <b>lower</b> the volume / cutoff
+	with part-effects.
+</li>
+</ul>
+
+<hr size=5>
+
+<div align=right><i>Jonas Norberg.</i></div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+/////////////////////////////////////////////////////////////////////////////////////////////
+VIKTIGA
+
+buggar:
+
+libbet:
+
+editor
+
+sequencer:
+	när man lägger till en kanal så unmutas kanalerna och volymen sätts till noll... samma problem när man sparar. Man borde kanske unmutea dem? Iallafall när man sparar.
+
+	rloop kruppas upp när man deletear
+
+partwindow:
+	när man editerar i en part borde den bli den som spelas.
+	skall finnas current ins på samma sätt som oktav, borde skrivas ut (kanske i titeln)
+	
+inswindow
+
+tracker
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+MINDRE VIKTIGA
+libbet:
+	song.h borde heta samma som klassen, och klassen borde heta stSong
+
+editor
+	Borde fråga om man vill spara ändringar
+
+sequencer:
+	klicka på rulern för att hoppa i låten
+	
+partwindow:
+	skall kunna remove:a sig själv.
+
+inswindow
+
+tracker
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+Att göra innan versionsbyte
+	ta bort alla varningar
+	ändra i st_version.h
+	ändra i readme.html
+	ändra i resursen
+	ändra i defaultsången

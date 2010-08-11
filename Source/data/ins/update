@@ -1,0 +1,6 @@
+#!/bin/sh
+raw2const < empty > empty.h
+raw2const < bd > bd.h
+raw2const < snare > snare.h
+raw2const < hh > hh.h
+raw2const < bass > bass.h
