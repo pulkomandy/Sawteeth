@@ -1,0 +1,10 @@
+cmake_minimum_required(VERSION 2.8)
+
+project(sawteeth)
+
+set(CMAKE_CXX_FLAGS "-Wall -Os")
+
+include_directories(lib/headers)
+
+add_subdirectory(Source)
+add_subdirectory(lib)

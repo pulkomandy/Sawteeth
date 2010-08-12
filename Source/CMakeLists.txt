@@ -1,0 +1,5 @@
+include_directories(..)
+
+add_executable(Sawteeth stAboutView.cpp stAboutWindow.cpp stAiffWindow.cpp stApp.cpp stBpView.cpp stChRulerView.cpp stChannelView.cpp stCurveControl.cpp stCurveKnob.cpp stCurveView.cpp stInstrumentWindow.cpp stMainWindow.cpp stPartSquare.cpp stPartWindow.cpp stSeqView.cpp stTrackerControl.cpp stTrackerEntry.cpp stTrackerView.cpp stsp.cpp)
+
+target_link_libraries(Sawteeth ST be tracker media translation)
