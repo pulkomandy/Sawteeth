@@ -721,7 +721,7 @@ void stMainWindow::SetFileType(const char *filename)
 		BFile file(filename,B_READ_WRITE);
 //		BFile file(filename,B_READ_ONLY);
 		char *buffer="audio/x-sawteeth";
-		int tmp = file.WriteAttr("BEOS:TYPE",B_STRING_TYPE,0,buffer,strlen(buffer)+1);
+		file.WriteAttr("BEOS:TYPE",B_STRING_TYPE,0,buffer,strlen(buffer)+1);
 }
 
 

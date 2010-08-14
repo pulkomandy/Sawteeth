@@ -266,6 +266,7 @@ void stTrackerEntry::KeyDown(const char *bytes,int32 numBytes)
 			msg->AddInt8("value",fields[current_field].content);
 			break;
 		case ST_TYPE_NOTE:
+		{
 			BMessage *message=Window()->CurrentMessage();
 			int32 key;
 			message->FindInt32("key",&key); // finds the scancode for the key
@@ -283,9 +284,10 @@ void stTrackerEntry::KeyDown(const char *bytes,int32 numBytes)
 			msg->AddInt8("row",CurrentRow());
 			msg->AddInt8("value",fields[current_field].content);
 			break;
-//		case ST_TYPE_SEPARATOR: break;
-//		case ST_TYPE_INDEX: break;
-//		case ST_TYPE_SPACE: break;
+		}
+		case ST_TYPE_SEPARATOR: break;
+		case ST_TYPE_INDEX: break;
+		case ST_TYPE_SPACE: break;
 	}
 	if (modifiers() & B_SHIFT_KEY) MoveCursorDown(true);
 	else MoveCursorDown();
@@ -384,6 +386,7 @@ void stTrackerEntry::Draw(BRect )
 				else DrawChar(number,BPoint(x_pos,10));
 				break;
 			case ST_TYPE_BOOL:
+			{
 				BRect rect(x_pos,0,x_pos+field_width[fields[i].type]-1,10);
 				BRect rect2=rect;
 				rect2.InsetBy(1,2);
@@ -398,7 +401,8 @@ void stTrackerEntry::Draw(BRect )
 				}
 				else if (fields[i].content) FillEllipse(rect2);
 				break;
-//			case ST_TYPE_SPACE: break;
+			}
+			case ST_TYPE_SPACE: break;
 		}
 		x_pos+=field_width[fields[i].type];
 	}

@@ -212,7 +212,7 @@ status_t Ins::Load(txt &t, uint16 st_version){
 #ifdef TARGET_EDITOR
 		steps = new InsStep [ INSSTEPS ];
 		{
-			for (int c = 0 ; c < INSSTEPS ; c++){
+			for (unsigned int c = 0 ; c < INSSTEPS ; c++){
 				steps[c].relative = true;
 				steps[c].wform =		0;
 				steps[c].note = 		0;			

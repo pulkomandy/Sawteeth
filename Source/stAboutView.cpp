@@ -31,7 +31,8 @@ void stBmView::MouseDown(BPoint)
 
 stAboutView::stAboutView(BRect rect, int halfseconds):
 	BView(rect,"name", B_FOLLOW_NONE , B_WILL_DRAW | B_PULSE_NEEDED ),
-	count(0),stop(halfseconds)
+	stop(halfseconds),
+	count(0)
 {
 	if (stop > 50) stop = 50;
 	m_rect = rect;

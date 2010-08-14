@@ -537,7 +537,7 @@ void Song::Init()
 	for (c = 0 ; c < channelcount ; c++){	
 		for (c1=0; c1 < chan[c].len; c1++){
 			if (chan[c].steps[c1].part >= partcount){
-				fprintf(stderr,"Warning Clamped a part at index %d in channel %d\n",c1,c);
+				fprintf(stderr,"Warning Clamped a part at index %ld in channel %ld\n",c1,c);
 				chan[c].steps[c1].part = partcount -1;
 			}
 		}

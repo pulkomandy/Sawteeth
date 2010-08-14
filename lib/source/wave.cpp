@@ -195,7 +195,7 @@ inline void Wave::FillSaw(float *out, uint32 count, float amp)
 			}
 			// antalet samples kvar till _walk blir fel
 			float walkdiff = 1.0 - curr;
-			int walksteps = (walkdiff/ step)+1;
+			int walksteps = (int)((walkdiff/ step)+1);
 
 			// antales samples kvar i buffern
 			int steps = stop-out;
@@ -271,7 +271,7 @@ inline void Wave::FillSquare(float *out, uint32 count, float amp)
 
 			// antalet samples kvar till _walk blir fel
 			float walkdiff = 1.0 - curr;
-			int walksteps = (walkdiff/ step)+1;
+			int walksteps = (int)((walkdiff/ step)+1);
 
 			// antales samples kvar i buffern
 			int steps = stop-out;
@@ -324,7 +324,7 @@ inline void Wave::FillNoise(float *out, uint32 count, float amp)
 
 			// antalet samples kvar till _walk blir fel
 			float walkdiff = 1.0 - curr;
-			int walksteps = (walkdiff/ step)+1;
+			int walksteps = (int)((walkdiff/ step)+1);
 
 			// antales samples kvar i buffern
 			int steps = stop-out;
