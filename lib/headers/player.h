@@ -1,3 +1,6 @@
+/* Copyright 2001, Jonas Norberg
+Distributed under the terms of the MIT Licence. */
+
 #ifndef PLAYER_H
 #define PLAYER_H
 

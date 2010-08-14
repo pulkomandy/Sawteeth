@@ -1,3 +1,6 @@
+/* Copyright 2001, Arvid and Jonas Norberg
+Distributed under the terms of the MIT Licence. */
+
 #include "stCurveControl.h"
 
 stCurveControl::stCurveControl(BRect bounds,char *name, BMessage *message):BView(bounds,"CurveView",B_FOLLOW_NONE,B_WILL_DRAW)

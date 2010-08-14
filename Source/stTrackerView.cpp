@@ -1,3 +1,6 @@
+/* Copyright 2001, Arvid and Jonas Norberg
+Distributed under the terms of the MIT Licence. */
+
 #include "stTrackerView.h"
 
 stTrackerView::stTrackerView(BRect bounds,uint8 num_lines,field_type *type_list,uint8 num_fields,BMessage *message):BView(bounds,"CurveView",B_FOLLOW_NONE,B_FRAME_EVENTS)

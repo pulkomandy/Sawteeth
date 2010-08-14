@@ -1,3 +1,6 @@
+/* Copyright 2001, Jonas Norberg
+Distributed under the terms of the MIT Licence. */
+
 #ifndef _ST_LFO_
 #define _ST_LFO_
 

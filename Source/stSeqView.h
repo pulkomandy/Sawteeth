@@ -1,6 +1,5 @@
-// SawTeeth SeqView
-// Jonas Norberg
-//
+/* Copyright 2001, Arvid and Jonas Norberg
+Distributed under the terms of the MIT Licence. */
 
 #ifndef ST_SEQ_VIEW_H
 #define ST_SEQ_VIEW_H

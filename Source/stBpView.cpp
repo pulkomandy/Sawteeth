@@ -1,3 +1,6 @@
+/* Copyright 2001, Arvid and Jonas Norberg
+Distributed under the terms of the MIT Licence. */
+
 #include "stBpView.h"
 #include "song.h"
 #include <stdio.h> // remove this line

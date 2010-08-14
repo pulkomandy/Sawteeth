@@ -1,3 +1,6 @@
+/* Copyright 2001, Arvid and Jonas Norberg
+Distributed under the terms of the MIT Licence. */
+
 #ifndef _ST_TRACKER_CONTROL_H_
 #define _ST_TRACKER_CONTROL_H_
 

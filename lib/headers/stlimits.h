@@ -1,3 +1,6 @@
+/* Copyright 2001, Jonas Norberg
+Distributed under the terms of the MIT Licence. */
+
 #ifndef _ST_LIMITS_
 #define _ST_LIMITS_
 

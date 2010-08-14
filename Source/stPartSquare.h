@@ -1,6 +1,6 @@
-// SawTeeth PartSquare
-// Jonas Norberg
-//
+/* Copyright 2001, Arvid and Jonas Norberg
+Distributed under the terms of the MIT Licence. */
+
 // Currently not connected width part
 
 #ifndef ST_PART_SQUARE_H

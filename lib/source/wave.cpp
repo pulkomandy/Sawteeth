@@ -1,3 +1,6 @@
+/* Copyright 2001, Jonas Norberg
+Distributed under the terms of the MIT Licence. */
+
 #include <stdio.h>
 #include <math.h>
 #include "wave.h"

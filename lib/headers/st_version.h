@@ -1,3 +1,6 @@
+/* Copyright 2001, Jonas Norberg
+Distributed under the terms of the MIT Licence. */
+
 // editor version
 #define ST_CURRENT_EDITOR_VERSION 1200
 
