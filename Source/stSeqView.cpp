@@ -9,7 +9,7 @@ Distributed under the terms of the MIT Licence. */
 #include "song.h"
 
 stSeqView::stSeqView(Song *song, BRect frame) : 
-	BView(frame, "Channel",  B_FOLLOW_ALL_SIDES, B_WILL_DRAW | B_FRAME_EVENTS | B_PULSE_NEEDED )
+	BView(frame, "Channel",  B_FOLLOW_ALL_SIDES, B_FRAME_EVENTS | B_PULSE_NEEDED )
 {
 //	fprintf(stderr,"stSeqView::stSeqView()\n");
 	semi_channel = 0;
@@ -21,8 +21,8 @@ stSeqView::stSeqView(Song *song, BRect frame) :
 //	printf("%f, %f, %f\n", fh.ascent, fh.descent, fh.leading);
 	height = (int)(3 * (fh.ascent + fh.descent));
 
-	ruler = new stChRulerView(BRect(0,0,frame.Width(),5));
-	bpv = new stBPView(BRect(0,6,frame.Width(),11), s);
+	ruler = new stChRulerView(BRect(0,0,frame.Width(),frame.Height()));
+	bpv = new stBPView(BRect(0,0,frame.Width(),frame.Height()), s);
 	AddChild(ruler);
 	AddChild(bpv);
 

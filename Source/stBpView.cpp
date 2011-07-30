@@ -6,7 +6,7 @@ Distributed under the terms of the MIT Licence. */
 #include <stdio.h> // remove this line
 
 stBPView::stBPView(BRect frame, Song *s) :
-	BView(frame, "View",  B_FOLLOW_NONE, B_WILL_DRAW ),
+	BView(frame, "View",  B_FOLLOW_TOP_BOTTOM, B_WILL_DRAW ),
 	_s(s),
 	_z(1)
 
@@ -46,14 +46,16 @@ void stBPView::Draw(BRect)
 //puts("stBPView::Draw()");	
 	int count = _s->BreakPointCount();
 	BreakPoint *bpp = _s->GetBreakPointByIndex(0);
+	
+	int height = Bounds().Height();
 
 	for (int c = 0 ; c < count ; c++){
 		float start = (float)bpp->PAL * _z;
 		uint8 col = bpp->command - '0';
 		if (col > 9) col = 0;
 		SetHighColor(table[col]);
-		StrokeLine( BPoint(start,0),BPoint(start,5));
-		StrokeLine( BPoint(start+1,0),BPoint(start+1,5));
+		StrokeLine( BPoint(start,0),BPoint(start,height));
+		StrokeLine( BPoint(start+1,0),BPoint(start+1,height));
 		bpp++;
 	}
 }

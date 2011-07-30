@@ -4,7 +4,7 @@ Distributed under the terms of the MIT Licence. */
 #include "stChRulerView.h"
 #include <stdio.h> // remove this line
 
-stChRulerView::stChRulerView(BRect frame) : BView(frame, "View",  B_FOLLOW_NONE, B_WILL_DRAW )
+stChRulerView::stChRulerView(BRect frame) : BView(frame, "View",  B_FOLLOW_TOP_BOTTOM, B_WILL_DRAW )
 {
 	z = 1;
 	
@@ -32,5 +32,5 @@ void stChRulerView::Draw(BRect)
 //puts("stChRulerView::Draw()");	
 
 		float start = pos*z;
-		FillRect( BRect( start, 0, start + 2 , 5 ) );
+		FillRect( BRect( start, 0, start + 2 , Bounds().Height() ) );
 }

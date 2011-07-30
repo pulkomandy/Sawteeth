@@ -11,85 +11,107 @@ Distributed under the terms of the MIT Licence. */
 #include "stApp.h"
 #include "song.h"
 
-stPartWindow::stPartWindow(stMainWindow *win, BPoint point,Part *part_to_edit, Song *song):
-	BWindow(BRect(point,point+BPoint(300,300)),"", B_FLOATING_WINDOW_LOOK, B_FLOATING_SUBSET_WINDOW_FEEL , B_NOT_H_RESIZABLE)
+stPartWindow::stPartWindow(stMainWindow *win, BPoint point, Part *part_to_edit,
+	Song *song)
+	: BWindow(BRect(point, point + BPoint(300, 300)), "",
+		B_FLOATING_WINDOW_LOOK,	B_FLOATING_SUBSET_WINDOW_FEEL,
+		B_NOT_H_RESIZABLE)
 {
 	main_win = win;
-	part=part_to_edit;
+	part = part_to_edit;
 	s = song;
 
 	BMessage *mess = new BMessage(ST_PPLAY_START);
-	AddShortcut(' ',B_COMMAND_KEY, mess);
+	AddShortcut(' ', B_COMMAND_KEY, mess);
 
 	// fixa shortcuts för att sätta ut breakpoints
-	for (int c = '0' ; c <= '9' ; c++){
+	for (int c = '0' ; c <= '9' ; c++) {
 		BMessage *mess = new BMessage(ST_ADD_BP);
-		mess->AddInt32("cmd",c);
-		AddShortcut(c,B_COMMAND_KEY, mess);
+		mess->AddInt32("cmd", c);
+		AddShortcut(c, B_COMMAND_KEY, mess);
 	}
 
-	AddShortcut('r',B_COMMAND_KEY, new BMessage(ST_DEL_BP));
+	AddShortcut('r', B_COMMAND_KEY, new BMessage(ST_DEL_BP));
 
-	field_type type_list[]={ST_TYPE_INDEX, ST_TYPE_SEPARATOR,ST_TYPE_SPACE,ST_TYPE_NOTE, ST_TYPE_SPACE,ST_TYPE_BLANK_NIBBLE,ST_TYPE_NIBBLE,ST_TYPE_SPACE,ST_TYPE_BLANK_NIBBLE,ST_TYPE_NIBBLE,ST_TYPE_SPACE};
-	tracker_control=new stTrackerControl(BRect(5,25,120,275),part->len,part->sps,type_list,sizeof(type_list)>>2,new BMessage(MSG_FROM_TRACKER),B_FOLLOW_TOP_BOTTOM);
+	field_type type_list[] = {
+		ST_TYPE_INDEX,
+		ST_TYPE_SEPARATOR,
+		ST_TYPE_SPACE,
+		ST_TYPE_NOTE,
+		ST_TYPE_SPACE,
+		ST_TYPE_BLANK_NIBBLE,
+		ST_TYPE_NIBBLE,
+		ST_TYPE_SPACE,
+		ST_TYPE_BLANK_NIBBLE,
+		ST_TYPE_NIBBLE,
+		ST_TYPE_SPACE};
 
-	FullUpdate(0, part->len-1);
+	tracker_control = new stTrackerControl(BRect(5, 40, 120, 275), part->len,
+		part->sps, type_list, sizeof(type_list)>>2,
+		new BMessage(MSG_FROM_TRACKER), B_FOLLOW_TOP_BOTTOM);
+
+	FullUpdate(0, part->len - 1);
 
 	float right_border = tracker_control->Frame().right;
 
-	name_string = new BTextControl(BRect(5,5,right_border,25),"name_string","Name:",part->name,new BMessage(ST_NEW_PART_NAME));
+	BButton* play = new BButton(BRect(0, 0, 25, 15), "play", "▶",
+		new BMessage('PLAY'));
+	play->SetFontSize(14);
+	BButton* delButton = new BButton(BRect(25, 0, 50, 15), "delete", "✗",
+		new BMessage('DELE'));
+	delButton->SetFontSize(14);
+
+	name_string = new BTextControl(BRect(5, 20, right_border, 40),
+		"name_string", "Name:", part->name, new BMessage(ST_NEW_PART_NAME));
 	name_string->SetDivider(30);
 
-	ResizeTo(right_border + 5.0,300);
+	ResizeTo(right_border + 5.0, 300);
 
 	BRect frame = Frame();
-	frame.OffsetTo(0.0,0.0);
+	frame.OffsetTo(0.0, 0.0);
 	frame.bottom += 1.0;
 	frame.right += 1.0;
 
-	BBox *box = new BBox(frame,"background",B_FOLLOW_ALL_SIDES);
+	BBox *box = new BBox(frame, "background", B_FOLLOW_ALL_SIDES);
 
 	AddChild(box);
 	box->AddChild(tracker_control);
 	box->AddChild(name_string);
+	box->AddChild(play);
+	box->AddChild(delButton);
 	UpdateTitle();
 }
+
 
 stPartWindow::~stPartWindow()
 {
 	main_win->ClosePartWin(part);
 }
 
+
 void stPartWindow::FullUpdate(int8 low, uint8 high)
 {
-	for (uint16 i=low;i<=high;i++)
+	for (uint16 i = low; i <= high; i++)
 	{
-		tracker_control->SetFieldContent(i,3,part->steps[i].note);
+		tracker_control->SetFieldContent(i, 3, part->steps[i].note);
 
-		tracker_control->SetFieldContent(i,5,(part->steps[i].ins & 0xf0) >> 4);
-		tracker_control->SetFieldContent(i,6,part->steps[i].ins & 0xf);
+		tracker_control->SetFieldContent(i, 5, (part->steps[i].ins & 0xf0) >> 4);
+		tracker_control->SetFieldContent(i, 6, part->steps[i].ins & 0xf);
 
-		tracker_control->SetFieldContent(i,8,(part->steps[i].eff & 0xf0) >> 4);
-		tracker_control->SetFieldContent(i,9,part->steps[i].eff & 0xf);
+		tracker_control->SetFieldContent(i, 8, (part->steps[i].eff & 0xf0) >> 4);
+		tracker_control->SetFieldContent(i, 9, part->steps[i].eff & 0xf);
 	}
 }
+
 
 void stPartWindow::UpdateTitle()
 {
 	char * tmp = new char[strlen(part->name) + 20];
-	sprintf(tmp,"%ld.%s", part - s->GetPart(0), part->name);
+	sprintf(tmp, "%ld.%s", part - s->GetPart(0), part->name);
 	SetTitle(tmp);
 	delete tmp;
 }
 
-
-/*
-bool stPartWindow::QuitRequested()
-{
-	be_app->PostMessage(B_QUIT_REQUESTED);
-	return true;
-}
-*/
 
 void stPartWindow::MessageReceived(BMessage *message)
 {
@@ -98,57 +120,60 @@ void stPartWindow::MessageReceived(BMessage *message)
 		case ST_ADD_BP:
 		{
 			int32 cmd = message->FindInt32("cmd");
-			
+
 			BMessage *mess = new BMessage(ST_ADD_BP);
-			mess->AddInt32("cmd",cmd);
-			mess->AddInt32("PAL",part->sps*tracker_control->TrackerView()->CurrentRow());
+			mess->AddInt32("cmd", cmd);
+			mess->AddInt32("PAL",
+				part->sps * tracker_control->TrackerView()->CurrentRow());
 			main_win->PostMessage(mess);
 		} break;
 
 		case ST_DEL_BP:
 		{
 			BMessage *mess = new BMessage(ST_DEL_BP);
-			mess->AddInt32("PAL",part->sps*tracker_control->TrackerView()->CurrentRow());
+			mess->AddInt32("PAL",
+				part->sps * tracker_control->TrackerView()->CurrentRow());
 			main_win->PostMessage(mess);
 		} break;
-		
+
 		case ST_PPLAY_START:
 		{
 			BMessage *mess = new BMessage(ST_PPLAY_START);
 			int16 temp = part - s->GetPart(0);
-			mess->AddInt16("part",temp);
-			mess->AddInt16("step",tracker_control->TrackerView()->CurrentRow());
+			mess->AddInt16("part", temp);
+			mess->AddInt16("step",
+				tracker_control->TrackerView()->CurrentRow());
 
 			main_win->PostMessage( mess );
 		} break;
-		
+
 		case ST_NEW_PART_NAME:
 		{
 			part->SetName((char*)name_string->Text());
 			UpdateTitle();
 			main_win->PostMessage(ST_PART_CHANGED);
 		} break;
-		
+
 		case MSG_FROM_TRACKER:
 		{
 			uint8 action;
-			message->FindInt8("action",(int8*)&action);
+			message->FindInt8("action", (int8*)&action);
 			switch (action)
 			{
 				case ST_SET_LENGTH:
 				{
 					stTrackerControl *control;
 					BTextControl *text;
-					message->FindPointer("control",(void**)&control);
-					message->FindPointer("source",(void**)&text);
+					message->FindPointer("control", (void**)&control);
+					message->FindPointer("source", (void**)&text);
 					control->SetLength(atoi(text->Text()));
 
 					char tmp[10];
-					sprintf(tmp,"%d",atoi(text->Text()));
+					sprintf(tmp, "%d", atoi(text->Text()));
 					text->SetText(tmp);
 
 					part->len = atoi(text->Text());
-					
+
 					for (uint16 i=0;i<part->len;i++)
 					{
 						tracker_control->SetFieldContent(i,3,part->steps[i].note);

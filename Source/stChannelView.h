@@ -36,6 +36,8 @@ void	Paste();
 
 void	MovePart(int source, int dest);
 
+int channelHeight() {return height;}
+
 private:
 	void Transpose(int8 t);
 	

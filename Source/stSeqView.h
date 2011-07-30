@@ -40,6 +40,8 @@ void	DeleteChannel();
 void	AddBreakPoint(uint32 PAL, uint32 cmd);
 void	DelBreakPoint(uint32 PAL);
 
+int ChannelHeight() {return height;}
+
 private:
 	stChRulerView *ruler;
 	stBPView *bpv;

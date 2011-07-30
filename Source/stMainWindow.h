@@ -50,6 +50,8 @@ private:
 	
 	void BuildPartMenu();
 	void BuildInstrumentMenu();
+	
+	void Autosize();
 
 	status_t init;
 	

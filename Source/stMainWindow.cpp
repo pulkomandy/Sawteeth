@@ -161,7 +161,7 @@ stMainWindow::stMainWindow(BRect frame, txt &flat):
 	BuildPartMenu();
 	BuildInstrumentMenu();
 
-
+	Autosize();
 }
 
 status_t stMainWindow::InitCheck(){	return init;};
@@ -405,6 +405,7 @@ void stMainWindow::MessageReceived(BMessage *message)
 		UnmuteAll();
 		st_seq_view->NewChannel();
 		ConstructMixWin();
+		Autosize();
 	} break;
 
 ///////////////////////////////////////// ta bort kanal (semifult)
@@ -439,6 +440,7 @@ void stMainWindow::MessageReceived(BMessage *message)
 		);
 		
 		ConstructMixWin();
+		Autosize();
 	} break;
 /////////////////////////////////////////
 	
@@ -733,4 +735,14 @@ void stMainWindow::ClosePartWin(Part *part)
 void stMainWindow::CloseInsWin(Ins *instrument_win)
 {
 	iw[instrument_win - song->GetIns(0)] = NULL;
+}
+
+void stMainWindow::Autosize()
+{
+	float mw,Mw,mh,Mh;
+	GetSizeLimits(&mw,&Mw,&mh,&Mh);
+	mh = st_seq_view->ChannelHeight()*(song->ChannelCount() + 1.5);
+	SetSizeLimits(mw, Mw, mh, mh);
+	mw = Bounds().right;
+	ResizeTo(mw, mh);
 }
