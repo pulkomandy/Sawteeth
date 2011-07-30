@@ -966,10 +966,9 @@ void Song::SetAuthor(const char *a)
 }
 
 
-void _____________________________________();
-void _____________________________________(){};
-
 #ifdef TARGET_EDITOR
+
+Player* Song::GetPlayer(int i) {return p[i];}
 
 /*_EXPORT*/ void Song::PartPlay( float *buff, uint32 SampleCount )
 {

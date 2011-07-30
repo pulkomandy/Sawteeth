@@ -16,6 +16,7 @@ Distributed under the terms of the MIT Licence. */
 #include "stMainWindow.h"
 #include "stPartWindow.h"
 #include "stAiffWindow.h"
+#include "PeakView.h"
 
 #include "Source/data/preset_instruments.h"
 
@@ -206,7 +207,7 @@ Song *stMainWindow::GetSong()
 }
 
 #define H 17
-#define H2 (H*2+10)
+#define H2 (H*3+5)
 void stMainWindow::ConstructMixWin()
 {
 	if (mixwin){
@@ -242,14 +243,15 @@ void stMainWindow::ConstructMixWin()
 // FIXA MIXER
 	for (uint16 c = 0 ; c < song->ChannelCount() ; c++){
 
-		//mute-knapp
+		//mute-check
 		BMessage *msg = new BMessage(ST_MIXER_MUTE);
 		msg->AddInt16("index",c);
 		BCheckBox *checkbox;
-		box->AddChild( checkbox = new BCheckBox(BRect(3,58+H2*c,20,70+H2*c),"mute",0,msg) );
+		box->AddChild( checkbox = new BCheckBox(BRect(3,H+50+H2*c,20,H+65+H2*c),"mute",0,msg) );
 		checkbox->SetTarget(this);
 		
 		const rgb_color fillc = { 255, 100, 40, 0};
+		
 		// LEFT
 		msg = new BMessage(ST_MIXER);
 		msg->AddInt16("index",c);
@@ -267,13 +269,14 @@ void stMainWindow::ConstructMixWin()
  		slide->SetTarget(this);
 		box->AddChild(slide);
 		mw[c*2] = slide;
+		
 		// RIGHT
 
 		msg = new BMessage(ST_MIXER);
 		msg->AddInt16("index",c);
 		msg->AddBool("left",false);
 		slide = new BSlider(
-			BRect(20,50+H2*c + H,295,50+H2*c + H2-1),
+			BRect(20,50+H2*c + 2*H,295,50+H2*c + H2-1),
 			"Amp", 0,
 			msg,
 			0, 255 );
@@ -285,8 +288,17 @@ void stMainWindow::ConstructMixWin()
  		slide->SetTarget(this);
 		box->AddChild(slide);
 		mw[c*2+1] = slide;
-
+		
+		// VUMETER
+		PeakView* vumeter = new PeakView("Vu", true, song->GetPlayer(c));
+		box->AddChild(vumeter);
+		vumeter->ResizeTo(275, H);
+		vumeter->MoveTo(20, 50+H2*c + H);
+		vumeter->SetChannelCount(1);
+		vu[c] = vumeter;
 	}
+	
+	mixwin->SetPulseRate(50000);
 	
 	mixwin->AddToSubset(this);
 	mixwin->Show();
@@ -716,7 +728,6 @@ void stMainWindow::MessageReceived(BMessage *message)
 		BWindow::MessageReceived(message);
 	}
 }
-
 
 void stMainWindow::SetFileType(const char *filename)
 {

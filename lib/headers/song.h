@@ -78,6 +78,8 @@ public:
 
 	// // // // // // // // // // OPTIONAL stuff
 	status_t	Optimize();		//B_OK if something was removed.
+	
+	Player* GetPlayer(int i);
 #endif
 
 	

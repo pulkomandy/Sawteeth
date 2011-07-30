@@ -16,6 +16,7 @@ Distributed under the terms of the MIT Licence. */
 #include "stdefs.h"
 
 class stInstrumentWindow;
+class PeakView;
 
 
 class stMainWindow : public BWindow
@@ -47,6 +48,7 @@ private:
 	void ConstructMixWin();
 	void UnmuteAll();
 	BSlider *mw[CHN*2];
+	PeakView *vu[CHN];
 	
 	void BuildPartMenu();
 	void BuildInstrumentMenu();
