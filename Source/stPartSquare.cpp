@@ -160,7 +160,7 @@ void	stPartSquare::MouseDown(BPoint)
 	Window()->PostMessage('unmk',Parent()->Parent());
 	MakeFocus();
 	((stChannelView*)Parent())->FindSquare();
-/*
+	
 	BMessage *msg = Window()->CurrentMessage();
 	uint32 tmp = msg->FindInt32("clicks");
 	if (tmp>1){
@@ -168,7 +168,6 @@ void	stPartSquare::MouseDown(BPoint)
 		message->AddInt32("index",*p);
 		Window()->PostMessage(message);
 	}
-*/
 }
 
 void stPartSquare::MessageReceived(BMessage *message)
