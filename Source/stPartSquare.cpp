@@ -28,22 +28,20 @@ stPartSquare::stPartSquare(Song* song,Channel * chan, uint16 index ,int8 *transp
 	g = 197;
 	b = 197;
 
-	SetViewColor(r,g,b);
+	SetViewColor(B_TRANSPARENT_COLOR);
 	SetLowColor(r,g,b);
 		
 
-	SetZoom(0.5);
+//	SetZoom(0.5);
 	height = (int)(rect.bottom - rect.top);
 	
 	PALs = 1;
 	startPAL = 0;
 
 	width = (int)(Frame().right - Frame().left);
-
-
+	
 	focus = false;
 	marked = false;
-	
 }
 
 stPartSquare::~stPartSquare()
@@ -131,16 +129,9 @@ void	stPartSquare::Draw(BRect )
 		
 	MovePenTo(2,height - fh.descent);
 	
-	char temp[5]={0,0,0,0,0};
-	sprintf(temp,"%d",*p);
+	char temp[30];;
+	sprintf(temp,"%d: %d:-%d:",*p,*t,*v);
 	DrawString(temp);
-	DrawString(":");
-	sprintf(temp,"%d",*t);
-	DrawString(temp);
-	DrawString(":-");
-	sprintf(temp,"%d",*v);
-	DrawString(temp);
-	DrawString(":");
 	DrawString(s->GetPart(*p)->name);
 	
 	if (ch->lloop == m_index){

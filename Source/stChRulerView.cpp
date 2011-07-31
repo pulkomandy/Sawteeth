@@ -8,8 +8,7 @@ stChRulerView::stChRulerView(BRect frame) : BView(frame, "View",  B_FOLLOW_TOP_B
 {
 	z = 1;
 	
-	SetViewColor(0,0,0);
-	SetHighColor(255,200,40);
+	SetViewColor(B_TRANSPARENT_COLOR);
 	ResizeTo(100000,frame.Height());
 }
 
@@ -27,10 +26,12 @@ void stChRulerView::SetPos(uint32 p)
 	Invalidate();
 }
 
-void stChRulerView::Draw(BRect)
+void stChRulerView::Draw(BRect r)
 {
-//puts("stChRulerView::Draw()");	
+	SetHighColor(0,0,0);
+	FillRect( BRect( r.left, r.top, r.right, 11) );
 
-		float start = pos*z;
-		FillRect( BRect( start, 0, start + 2 , Bounds().Height() ) );
+	float start = pos*z;
+	SetHighColor(255,200,40);
+	FillRect( BRect( start, 0, start + 2 , Bounds().Height() ) );
 }

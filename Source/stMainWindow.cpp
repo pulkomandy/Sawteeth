@@ -753,7 +753,8 @@ void stMainWindow::Autosize()
 {
 	float mw,Mw,mh,Mh;
 	GetSizeLimits(&mw,&Mw,&mh,&Mh);
-	mh = st_seq_view->ChannelHeight()*(song->ChannelCount() + 1.5);
+	// 12 pixels for pos/brk area
+	mh = st_seq_view->ChannelHeight()*(song->ChannelCount()) + B_H_SCROLL_BAR_HEIGHT + menu->Bounds().Height() + 12;
 	SetSizeLimits(mw, Mw, mh, mh);
 	mw = Bounds().right;
 	ResizeTo(mw, mh);
