@@ -177,6 +177,13 @@ void stPartSquare::MessageReceived(BMessage *message)
 	Window()->PostMessage(message);
 }
 
+void stPartSquare::OpenInEditor()
+{
+	BMessage *message=new BMessage(ST_EDIT_PART);
+				message->AddInt32("index",*p);
+				Window()->PostMessage(message);
+}
+
 void	stPartSquare::KeyDown(const char *bytes, int32 numBytes) 
 {
 	int32 mod;
@@ -204,9 +211,7 @@ void	stPartSquare::KeyDown(const char *bytes, int32 numBytes)
 
 		switch ( bytes[0] ) { 
 			case B_ENTER:{
-				BMessage *message=new BMessage(ST_EDIT_PART);
-				message->AddInt32("index",*p);
-				Window()->PostMessage(message);
+				OpenInEditor();
 			} break;
 			
 			case 'l':{

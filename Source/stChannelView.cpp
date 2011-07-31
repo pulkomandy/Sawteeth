@@ -124,6 +124,7 @@ void stChannelView::MessageReceived(BMessage *message)
 		case 'tr_d'://	puts("channview-tr-down");
 			Transpose(-1);
 		break;
+		
 		default:
 			Window()->DetachCurrentMessage();
 			Window()->PostMessage(message);

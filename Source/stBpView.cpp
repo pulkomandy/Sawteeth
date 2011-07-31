@@ -6,14 +6,14 @@ Distributed under the terms of the MIT Licence. */
 #include <stdio.h> // remove this line
 
 stBPView::stBPView(BRect frame, Song *s) :
-	BView(frame, "View",  B_FOLLOW_TOP_BOTTOM, B_WILL_DRAW ),
+	BView(frame, "View",  B_FOLLOW_TOP, B_WILL_DRAW ),
 	_s(s),
 	_z(1)
 
 {
-	SetViewColor(B_TRANSPARENT_COLOR);
+	SetViewColor(0,0,0);
 	SetHighColor(140,255,255);
-	ResizeTo(100000,frame.Height());
+	ResizeTo(100000,11);
 }
 
 void stBPView::SetZoom(float zoom)

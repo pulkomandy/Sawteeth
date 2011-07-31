@@ -9,7 +9,7 @@ Distributed under the terms of the MIT Licence. */
 #include "song.h"
 
 stSeqView::stSeqView(Song *song, BRect frame) : 
-	BView(frame, "Channel",  B_FOLLOW_ALL_SIDES, B_FRAME_EVENTS | B_PULSE_NEEDED )
+	BView(frame, "Channel",  B_FOLLOW_ALL_SIDES, B_FRAME_EVENTS | B_PULSE_NEEDED | B_WILL_DRAW | B_DRAW_ON_CHILDREN)
 {
 //	fprintf(stderr,"stSeqView::stSeqView()\n");
 	semi_channel = 0;
@@ -21,9 +21,7 @@ stSeqView::stSeqView(Song *song, BRect frame) :
 //	printf("%f, %f, %f\n", fh.ascent, fh.descent, fh.leading);
 	height = (int)(3 * (fh.ascent + fh.descent));
 
-	ruler = new stChRulerView(BRect(0,0,frame.Width(),frame.Height()));
-	bpv = new stBPView(BRect(0,0,frame.Width(),frame.Height()), s);
-	AddChild(ruler);
+	bpv = new stBPView(BRect(0,0,frame.Width(),11), s);
 	AddChild(bpv);
 
 
@@ -103,7 +101,7 @@ void stSeqView::Update(bool all, float l , float r)
 
 void stSeqView::Pulse()
 {
-	ruler->SetPos(s->GetPos());
+	SetPos(s->GetPos());
 }
 
 stSeqView::~stSeqView()
@@ -179,7 +177,6 @@ void stSeqView::DelBreakPoint(uint32 PAL)
 void stSeqView::SetZoom(float z)
 {
 	m_z = z;
-	ruler->SetZoom(z);
 	bpv->SetZoom(z);
 
 	for (int c=0 ; c < s->ChannelCount() ; c++){
@@ -201,22 +198,6 @@ void stSeqView::NewChannel()
 		Update();
 	}
 }
-
-/*
-void stSeqView::Draw(BRect frame)
-{
-//	FillRect(frame);
-//	puts("stSeqView::Draw()");	
-}
-*/
-
-
-
-
-
-
-
-
 
 
 int	stSeqView::GetFocusPosition()
@@ -251,4 +232,22 @@ void stSeqView::Paste() // töm clipboard och insert i
 	ps[c]->Paste();
 	
 	Update(true);
+}
+
+// Draw after childen so the position marker is above them and thus, visible.
+void stSeqView::DrawAfterChildren(BRect r)
+{
+	float start = pos*m_z;
+	//if (r.left > start || r.right < start) return;
+	SetHighColor(255,200,40, 128);
+	SetDrawingMode(B_OP_ALPHA);
+	FillRect( BRect( start, 0, start + 2 , Bounds().Height() ) );
+}
+
+void stSeqView::SetPos(uint32 p)
+{
+	if (pos == p) return;
+	// TODO : only invalidate the needed area
+	pos = p;
+	Invalidate();
 }

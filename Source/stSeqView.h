@@ -6,7 +6,6 @@ Distributed under the terms of the MIT Licence. */
 
 #include "song.h"
 #include "stChannelView.h"
-#include "stChRulerView.h"
 #include "stBpView.h"
 #include "stdefs.h"
 
@@ -19,7 +18,7 @@ public:
 void	Pulse();
 
 void	MessageReceived(BMessage *message); 
-//void	Draw(BRect frame);
+void	DrawAfterChildren(BRect r);
 void	SetZoom(float PixelsPerPAL);
 void	AttachedToWindow(void);
 void	FrameResized(float w, float h);
@@ -40,10 +39,11 @@ void	DeleteChannel();
 void	AddBreakPoint(uint32 PAL, uint32 cmd);
 void	DelBreakPoint(uint32 PAL);
 
+void SetPos(uint32 p);
+
 int ChannelHeight() {return height;}
 
 private:
-	stChRulerView *ruler;
 	stBPView *bpv;
 
 	int semi_channel;
@@ -52,6 +52,9 @@ private:
 	Song *s;
 	stChannelView *ps[CHN];
 	float m_z;
+	
+	// Position marker
+	uint32 pos;
 };
 
 #endif

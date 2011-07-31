@@ -31,6 +31,8 @@ void	Mark(bool mark = true);
 bool	IsMark();
 
 private:
+	void OpenInEditor();
+
 	Channel * ch;
 	Song *s;
 	int8 *t;
