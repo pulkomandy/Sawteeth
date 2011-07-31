@@ -148,12 +148,17 @@ stMainWindow::stMainWindow(BRect frame, txt &flat):
 	rect.OffsetTo(0,0);
 	rect.left = 0;
 	rect.top += hi + 1;
-//	rect.right -= B_V_SCROLL_BAR_WIDTH;
 	rect.bottom -= B_H_SCROLL_BAR_HEIGHT;
 
 	st_seq_view = new stSeqView(song,rect);
 	st_scroll_view = new BScrollView("SawTeethView", st_seq_view, B_FOLLOW_ALL_SIDES,B_WILL_DRAW, true, false, B_NO_BORDER);
 	AddChild(st_scroll_view	);
+	
+	// Make space for the resize knob
+	BScrollBar* scrollBar = st_scroll_view->ScrollBar(B_HORIZONTAL);
+	BRect r = scrollBar->Bounds();
+	r.right -= B_V_SCROLL_BAR_WIDTH;
+	scrollBar->ResizeTo(r.Width(), r.Height());
 
 	mixwin = 0;
 	ConstructMixWin();
