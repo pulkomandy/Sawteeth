@@ -188,16 +188,17 @@ stMainWindow::~stMainWindow()
 	}
 	
 	song->Stop();
+		
+	if (init == JNG_OK){
+		mixwin->Lock();
+		mixwin->Quit();
+	}
+	
 	delete song;
 	delete save;
 	delete release_save;
 	delete aiff_save;
 	delete file_name;
-	
-	if (init == JNG_OK){
-		mixwin->Lock();
-		mixwin->Quit();
-	}
 }
 
 

@@ -11,7 +11,7 @@ stBPView::stBPView(BRect frame, Song *s) :
 	_z(1)
 
 {
-	SetViewColor(0,0,0);
+	SetViewColor(B_TRANSPARENT_COLOR);
 	SetHighColor(140,255,255);
 	ResizeTo(100000,frame.Height());
 }
