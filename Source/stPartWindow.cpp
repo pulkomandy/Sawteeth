@@ -87,6 +87,12 @@ stPartWindow::stPartWindow(stMainWindow *win, BPoint point, Part *part_to_edit,
 	box->AddChild(tracker_control);
 	box->AddChild(name_string);
 	UpdateTitle();
+	
+	font_height height;
+	be_fixed_font->GetHeight(&height);
+	
+	float Mh = part->len * (height.ascent+height.descent) + menu->Bounds().bottom + 75;
+	SetSizeLimits(right_border, right_border, menu->Bounds().bottom + (height.ascent+height.descent) + 125, Mh);
 }
 
 
@@ -302,4 +308,10 @@ void stPartWindow::MessageReceived(BMessage *message)
 			main_win->PostMessage(message);
 		}
 	}
+}
+
+void stPartWindow::Zoom(BPoint lefttop, float wide, float high)
+{
+	ResizeTo(wide, high);
+	//MoveTo(lefttop.x, Frame().top);	
 }

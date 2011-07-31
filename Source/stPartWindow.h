@@ -19,6 +19,7 @@ public:
 	~stPartWindow();
 //	virtual bool QuitRequested();
 	virtual void MessageReceived(BMessage *message);
+	void Zoom(BPoint lefttop, float wide, float high);
 private:
 	void FullUpdate(int8 low, uint8 high);
 	void UpdateTitle();
