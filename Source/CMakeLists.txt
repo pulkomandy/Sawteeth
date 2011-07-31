@@ -7,6 +7,9 @@ stTrackerControl.cpp stTrackerEntry.cpp stTrackerView.cpp stsp.cpp
 PeakView.cpp
 )
 
-add_custom_command(TARGET Sawteeth POST_BUILD COMMAND xres -o Sawteeth ${CMAKE_SOURCE_DIR}/Source/Resource.rsrc DEPENDS Resource.rsrc)
+add_custom_command(TARGET Sawteeth POST_BUILD 
+	COMMAND rc -o Resource.rsrc ${CMAKE_SOURCE_DIR}/Source/Resource.rdef
+	COMMAND xres -o Sawteeth Resource.rsrc
+	DEPENDS Resource.rdef)
 
 target_link_libraries(Sawteeth ST be tracker media translation)
