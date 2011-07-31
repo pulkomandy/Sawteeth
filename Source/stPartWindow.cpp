@@ -21,9 +21,6 @@ stPartWindow::stPartWindow(stMainWindow *win, BPoint point, Part *part_to_edit,
 	part = part_to_edit;
 	s = song;
 
-	BMessage *mess = new BMessage(ST_PPLAY_START);
-	AddShortcut(' ', B_COMMAND_KEY, mess);
-
 	// fixa shortcuts för att sätta ut breakpoints
 	for (int c = '0' ; c <= '9' ; c++) {
 		BMessage *mess = new BMessage(ST_ADD_BP);
@@ -46,39 +43,49 @@ stPartWindow::stPartWindow(stMainWindow *win, BPoint point, Part *part_to_edit,
 		ST_TYPE_NIBBLE,
 		ST_TYPE_SPACE};
 
-	tracker_control = new stTrackerControl(BRect(5, 40, 120, 275), part->len,
+	BRect rect = BRect(0,0,0,0);
+	BMenuBar* menu = new BMenuBar(rect, "menu");
+		BMenu* partMenu = new BMenu("part");
+			// TODO : switch the label to Stop while playing
+			BMenuItem* play = new BMenuItem("▶ Play", new BMessage(ST_PPLAY_START), ' ', B_COMMAND_KEY);
+			partMenu->AddItem(play);
+		menu->AddItem(partMenu);
+
+	float bottom = menu->Bounds().bottom;
+	bottom += 40;
+
+	tracker_control = new stTrackerControl(BRect(5, bottom, 120, bottom + 235), part->len,
 		part->sps, type_list, sizeof(type_list)>>2,
 		new BMessage(MSG_FROM_TRACKER), B_FOLLOW_TOP_BOTTOM);
-
-	FullUpdate(0, part->len - 1);
-
 	float right_border = tracker_control->Frame().right;
 
-	BButton* play = new BButton(BRect(0, 0, 25, 15), "play", "▶",
-		new BMessage('PLAY'));
-	play->SetFontSize(14);
-	BButton* delButton = new BButton(BRect(25, 0, 50, 15), "delete", "✗",
-		new BMessage('DELE'));
-	delButton->SetFontSize(14);
+	bottom -= 20;
 
-	name_string = new BTextControl(BRect(5, 20, right_border, 40),
+	name_string = new BTextControl(BRect(5, bottom, right_border, bottom + 20),
 		"name_string", "Name:", part->name, new BMessage(ST_NEW_PART_NAME));
 	name_string->SetDivider(30);
 
+	FullUpdate(0, part->len - 1);
+
+	// I should use a menu here ?
+	/*
+	BButton* delButton = new BButton(BRect(25, 0, 50, 10), "delete", "✗",
+		new BMessage('DELE'));
+	delButton->SetFontSize(14);
+	*/
+
 	ResizeTo(right_border + 5.0, 300);
 
-	BRect frame = Frame();
-	frame.OffsetTo(0.0, 0.0);
+	BRect frame = Bounds();
 	frame.bottom += 1.0;
 	frame.right += 1.0;
 
 	BBox *box = new BBox(frame, "background", B_FOLLOW_ALL_SIDES);
 
 	AddChild(box);
+	box->AddChild(menu);
 	box->AddChild(tracker_control);
 	box->AddChild(name_string);
-	box->AddChild(play);
-	box->AddChild(delButton);
 	UpdateTitle();
 }
 
