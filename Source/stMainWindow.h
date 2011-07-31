@@ -34,7 +34,7 @@ public:
 	// virtual void WindowActivated(bool active);
 	// virtual void WorkspaceActivated(int32 workspc, bool active);
 	// virtual void WorkspaceChanged(int32 oldworkspc, int32 newworkspc);
-	// virtual void Zoom(BPoint lefttop, float wide, float high);
+	virtual void Zoom(BPoint lefttop, float wide, float high);
 	virtual void MessageReceived(BMessage *message);
 
 	void UpdateTitle();

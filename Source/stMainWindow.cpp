@@ -764,3 +764,9 @@ void stMainWindow::Autosize()
 	mw = Bounds().right;
 	ResizeTo(mw, mh);
 }
+
+void stMainWindow::Zoom(BPoint lefttop, float wide, float high)
+{
+	ResizeTo(wide, high);
+	MoveTo(lefttop.x, Frame().top);	
+}
