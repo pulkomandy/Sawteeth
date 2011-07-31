@@ -3,7 +3,8 @@ Distributed under the terms of the MIT Licence. */
 
 #include "stTrackerView.h"
 
-stTrackerView::stTrackerView(BRect bounds,uint8 num_lines,field_type *type_list,uint8 num_fields,BMessage *message):BView(bounds,"CurveView",B_FOLLOW_NONE,B_FRAME_EVENTS)
+stTrackerView::stTrackerView(BRect bounds,uint8 num_lines,field_type *type_list,uint8 num_fields,BMessage *message)
+	: BView(bounds,"CurveView",B_FOLLOW_NONE,B_FRAME_EVENTS)
 {
 	octave = 4;
 	entry_count=0;
@@ -79,13 +80,14 @@ void stTrackerView::UpdateScrollbars()
 	BScrollBar *sb;
 	if ((sb=ScrollBar(B_VERTICAL))!=NULL)
 	{
-		float range=entry_count*entry_height-Frame().Height();
-		if (range<0) range=0;
-		sb->SetProportion(Frame().Height()/(entry_count*entry_height));
+		// TODO why do I have to do +2 here ?
+		float range=(entry_count + 2)*entry_height-Frame().Height();
+
+		sb->SetProportion(Frame().Height()/((entry_count+2)*entry_height));
 		sb->SetRange(0,range);
-		// Steps are 1/8 visible window for small steps
+		// Steps are 1 line for small steps
 		//   and 1/2 visible window for large steps
-		sb->SetSteps(/*entry_count**/entry_height/* / 8.0*/, Parent()->Frame().Height()/*entry_count*entry_height / 2.0*/);
+		sb->SetSteps(entry_height, Parent()->Frame().Height() / 2.0);
 	}
 }
 
