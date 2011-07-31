@@ -1,5 +1,8 @@
 include_directories(..)
 
+# Avoid getting the executable in Source/ folder
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
 add_executable(Sawteeth
 	stAboutView.cpp stAboutWindow.cpp
 	stAiffWindow.cpp

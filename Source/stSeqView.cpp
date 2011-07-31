@@ -237,8 +237,9 @@ void stSeqView::Paste() // töm clipboard och insert i
 // Draw after childen so the position marker is above them and thus, visible.
 void stSeqView::DrawAfterChildren(BRect r)
 {
+	if (pos == 0) return; // don't draw marker at start of song
 	float start = pos*m_z;
-	//if (r.left > start || r.right < start) return;
+	if (r.left > start || r.right < start) return;
 	SetHighColor(255,200,40, 128);
 	SetDrawingMode(B_OP_ALPHA);
 	FillRect( BRect( start, 0, start + 2 , Bounds().Height() ) );
