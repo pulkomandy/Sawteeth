@@ -42,6 +42,8 @@ public:
 	void CloseInsWin(Ins *ins);
 	
 	Song *GetSong();
+	
+	bool IsPlaying() {return playing;}
 private:
 	void SetFileType(const char *filename);
 	void ExportAIFF(BFile &f);

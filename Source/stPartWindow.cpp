@@ -45,9 +45,9 @@ stPartWindow::stPartWindow(stMainWindow *win, BPoint point, Part *part_to_edit,
 
 	BRect rect = BRect(0,0,0,0);
 	BMenuBar* menu = new BMenuBar(rect, "menu");
-		BMenu* partMenu = new BMenu("part");
+		BMenu* partMenu = new BMenu("Part");
 			// TODO : switch the label to Stop while playing
-			BMenuItem* play = new BMenuItem("▶ Play", new BMessage(ST_PPLAY_START), ' ', B_COMMAND_KEY);
+			play = new BMenuItem("Play", new BMessage(ST_PPLAY_START), ' ', B_COMMAND_KEY);
 			partMenu->AddItem(play);
 		menu->AddItem(partMenu);
 
@@ -151,6 +151,11 @@ void stPartWindow::MessageReceived(BMessage *message)
 			mess->AddInt16("step",
 				tracker_control->TrackerView()->CurrentRow());
 
+			if (main_win->IsPlaying())
+			{
+				play->SetLabel("Play");	
+			} else
+				play->SetLabel("Stop");
 			main_win->PostMessage( mess );
 		} break;
 

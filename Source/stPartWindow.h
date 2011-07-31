@@ -27,6 +27,8 @@ private:
 	Song *s;
 	Part *part;
 	BTextControl *name_string;
+	
+	BMenuItem* play;
 };
 
 #endif // _ST_PART_WINDOW_H_
