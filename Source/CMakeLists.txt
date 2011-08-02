@@ -17,7 +17,7 @@ add_executable(Sawteeth
 
 add_custom_command(TARGET Sawteeth POST_BUILD 
 	COMMAND rc -o Resource.rsrc ${CMAKE_SOURCE_DIR}/Source/Resource.rdef
-	COMMAND xres -o Sawteeth Resource.rsrc
+	COMMAND xres -o ${CMAKE_BINARY_DIR}/Sawteeth Resource.rsrc
 	DEPENDS Resource.rdef)
 
 target_link_libraries(Sawteeth ST be tracker media translation)
