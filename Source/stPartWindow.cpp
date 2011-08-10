@@ -44,7 +44,7 @@ stPartWindow::stPartWindow(stMainWindow *win, BPoint point, Part *part_to_edit,
 		ST_TYPE_SPACE};
 
 	BRect rect = BRect(0,0,0,0);
-	BMenuBar* menu = new BMenuBar(rect, "menu");
+	menu = new BMenuBar(rect, "menu");
 		BMenu* partMenu = new BMenu("Part");
 			// TODO : switch the label to Stop while playing
 			play = new BMenuItem("Play", new BMessage(ST_PPLAY_START), ' ', B_COMMAND_KEY);
@@ -88,11 +88,7 @@ stPartWindow::stPartWindow(stMainWindow *win, BPoint point, Part *part_to_edit,
 	box->AddChild(name_string);
 	UpdateTitle();
 	
-	font_height height;
-	be_fixed_font->GetHeight(&height);
-	
-	float Mh = part->len * (height.ascent+height.descent) + menu->Bounds().bottom + 75;
-	SetSizeLimits(right_border, right_border, menu->Bounds().bottom + (height.ascent+height.descent) + 125, Mh);
+	ComputeSizeLimits();
 }
 
 
@@ -203,6 +199,8 @@ void stPartWindow::MessageReceived(BMessage *message)
 						tracker_control->SetFieldContent(i,9,part->steps[i].eff & 0xf);
 					}
 					main_win->PostMessage(ST_PART_CHANGED);
+					
+					ComputeSizeLimits();
 				}break;
 				case ST_SET_SPEED:
 				{
@@ -310,8 +308,21 @@ void stPartWindow::MessageReceived(BMessage *message)
 	}
 }
 
+
 void stPartWindow::Zoom(BPoint lefttop, float wide, float high)
 {
 	ResizeTo(wide, high);
 	//MoveTo(lefttop.x, Frame().top);	
+}
+
+
+void stPartWindow::ComputeSizeLimits()
+{
+	font_height height;
+	be_fixed_font->GetHeight(&height);
+	
+	float fixedAreaSize = menu->Bounds().bottom + name_string->Bounds().Height() * 3 + 24;
+	float Mh = tracker_control->TrackerView()->OptimalSize() + fixedAreaSize;
+	float right_border = tracker_control->Frame().right;
+	SetSizeLimits(right_border, right_border, 5 * (height.ascent+height.descent) + fixedAreaSize, Mh);
 }

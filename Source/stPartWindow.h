@@ -23,12 +23,15 @@ public:
 private:
 	void FullUpdate(int8 low, uint8 high);
 	void UpdateTitle();
+	void ComputeSizeLimits();
+	
 	stMainWindow *main_win;
 	stTrackerControl *tracker_control;
 	Song *s;
 	Part *part;
 	BTextControl *name_string;
 	
+	BMenuBar* menu;
 	BMenuItem* play;
 };
 

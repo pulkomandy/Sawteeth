@@ -28,6 +28,8 @@ public:
 	
 	uint8 Octave();
 	void SetOctave(uint8 oct);
+	
+	int OptimalSize() { return entry_height * entry_count; }
 private:
 
 	uint16 entry_height;
