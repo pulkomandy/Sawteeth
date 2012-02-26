@@ -24,6 +24,8 @@ public:
 	BPoint KnobPosition(uint8 id);
 	
 	uint8 KnobCount();
+
+	void MouseUp(BPoint where);
 	
 private:
 	void UpdateIndices();

@@ -176,3 +176,23 @@ void stCurveView::Draw(BRect )
 	SetDrawingMode(B_OP_COPY);
 	SetHighColor(136,136,234,255);
 }
+
+void stCurveView::MouseUp(BPoint where)
+{
+	// Select closest knob
+	int i;
+	int id = -1;
+	int dist = INT_MAX;
+	for (i = KnobCount(); --i >= 0;)
+	{
+		BPoint vector = where - knob[i]->Position();
+		int sqr = vector.x * vector.x + vector.y * vector.y;
+		if (sqr < dist)
+		{
+			dist = sqr;
+			id = i;
+		}	
+	}
+
+	knob[id]->MakeFocus(true);
+}

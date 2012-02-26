@@ -5,10 +5,10 @@ Distributed under the terms of the MIT Licence. */
 #include "stCurveView.h"
 #include "stCurveControl.h"
 
-stCurveKnob::stCurveKnob(BPoint point,BRect movable_rect,BMessage *message):BView(BRect(point-BPoint(2,2),point+BPoint(2,2)),"CurveKnob",B_FOLLOW_NONE,B_NAVIGABLE+B_WILL_DRAW)
+stCurveKnob::stCurveKnob(BPoint point,BRect movable_rect,BMessage *message):BView(BRect(point-BPoint(SIZE,SIZE),point+BPoint(SIZE,SIZE)),"CurveKnob",B_FOLLOW_NONE,B_NAVIGABLE+B_WILL_DRAW)
 {
 	m_message = message;
-	movable_rect.OffsetBy(-2,-2);
+	movable_rect.OffsetBy(-SIZE,-SIZE);
 	moving_rect=movable_rect;
 	draw_frame=Frame();
 	draw_frame.OffsetTo(0,0);
@@ -22,17 +22,17 @@ stCurveKnob::~stCurveKnob()
 
 void stCurveKnob::Draw(BRect )
 {
-	StrokeRect(draw_frame);
+	StrokeRect(draw_frame.InsetByCopy(1,1));
 }
 
 void stCurveKnob::MoveTo(BPoint point)
 {
-	point-=BPoint(2,2);
+	point-=BPoint(SIZE,SIZE);
 	point.ConstrainTo(moving_rect);
 	BView::MoveTo(point);
 	BRect draw_rect=invalidate_rect;
-	draw_rect.InsetBy(-2,0);
-	draw_rect.OffsetBy(2,2);
+	draw_rect.InsetBy(-SIZE,0);
+	draw_rect.OffsetBy(SIZE,SIZE);
 	Parent()->Invalidate(draw_rect);
 }
 

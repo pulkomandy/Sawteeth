@@ -34,6 +34,8 @@ private:
 	BRect moving_rect; // the rectangle the knob can move within
 	BRect invalidate_rect; // the rectangle the knob has to invalidate when it moves
 	BRect draw_frame;
+
+	static const int SIZE = 2;
 };
 
 // inline definitions
