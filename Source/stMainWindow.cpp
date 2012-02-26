@@ -11,6 +11,7 @@ Distributed under the terms of the MIT Licence. */
 #include <ScrollView.h>
 #include <TranslationUtils.h>
 #include <StorageKit.h>
+#include <GroupView.h>
 
 #include "song.h"
 #include "stMainWindow.h"
@@ -212,8 +213,6 @@ Song *stMainWindow::GetSong()
 	return (Song*)song;
 }
 
-#define H 17
-#define H2 (H*3+5)
 void stMainWindow::ConstructMixWin()
 {
 	if (mixwin){
@@ -221,89 +220,88 @@ void stMainWindow::ConstructMixWin()
 		mixwin->Quit();
 	}
 	
-	BRect r(400,10,700,57+H2*song->ChannelCount());
+	BRect r(400,10,700,700);
 	mixwin = new BWindow(r, "Controls",B_FLOATING_WINDOW_LOOK, B_FLOATING_SUBSET_WINDOW_FEEL ,
-		B_NOT_ZOOMABLE | B_NOT_CLOSABLE | B_NOT_RESIZABLE | B_ASYNCHRONOUS_CONTROLS);
+		B_NOT_ZOOMABLE | B_NOT_CLOSABLE | B_NOT_RESIZABLE | B_ASYNCHRONOUS_CONTROLS | B_AUTO_UPDATE_SIZE_LIMITS);
 
-// BBox
-	r.OffsetTo(0,0);
-	r.bottom += 1;
-	r.right += 1;
+	BGroupLayout* winLayout = new BGroupLayout(B_VERTICAL, 0);
+	mixwin->SetLayout(winLayout);
 
-	BBox *box = new BBox(r);
-	mixwin->AddChild(box);
-
+	BGroupView* mixlay = new BGroupView(B_VERTICAL, 0);
+	((BGroupLayout*)mixlay->GetLayout())->SetInsets(3,3,3,3);
+	mixwin->AddChild(mixlay);
 // FIXA TEXTCONTROLS
-	BTextControl *tc = new BTextControl(BRect(5,5,295,25),"song","Songname:",
+	BTextControl *tc = new BTextControl("song","Songname",
 		song->Name(),new BMessage(ST_SONGNAME_CHANGED));
 	tc->SetTarget(this,this);
-	tc->SetDivider(70);
-	box->AddChild(tc);
+	mixlay->AddChild(tc);
 	
-	tc = new BTextControl(BRect(5,25,295,45),"author","Author / Info:",song->Author(),
+	tc = new BTextControl("author","Author/Info",song->Author(),
 		new BMessage(ST_AUTHOR_CHANGED));
 	tc->SetTarget(this,this);
-	tc->SetDivider(70);
-	box->AddChild(tc);
+	mixlay->AddChild(tc);
 
 // FIXA MIXER
 	for (uint16 c = 0 ; c < song->ChannelCount() ; c++){
 
+		BGroupView* box = new BGroupView(B_VERTICAL, 0);
+		BGroupView* channel = new BGroupView(B_HORIZONTAL, 1);
 		//mute-check
 		BMessage *msg = new BMessage(ST_MIXER_MUTE);
 		msg->AddInt16("index",c);
 		BCheckBox *checkbox;
-		box->AddChild( checkbox = new BCheckBox(BRect(3,H+50+H2*c,20,H+65+H2*c),"mute",0,msg) );
+		((BGroupLayout*)channel->GetLayout())->AddView( checkbox = new BCheckBox("mute",0,msg), 0.0f );
 		checkbox->SetTarget(this);
 		
 		const rgb_color fillc = { 255, 100, 40, 0};
+
+		// VUMETER
+		PeakView* vumeter = new PeakView("Vu", true, song->GetPlayer(c));
+		vumeter->SetChannelCount(1);
+		vu[c] = vumeter;
+
+		channel->AddChild(vumeter);
 		
 		// LEFT
 		msg = new BMessage(ST_MIXER);
 		msg->AddInt16("index",c);
 		msg->AddBool("left",true);
 		BSlider *slide = new BSlider(
-			BRect(20,50+H2*c,295,50+H2*c +(H)-1),
-			"Amp", 0,
+			"Amp", NULL,
 			msg,
-			0, 255 );
+			0, 255, B_HORIZONTAL );
 
 		slide->UseFillColor(true, &fillc);
 		slide->SetHashMarkCount(11);
 		slide->SetHashMarks(B_HASH_MARKS_BOTTOM);
 		slide->SetValue(song->GetChannel(c)->left);
  		slide->SetTarget(this);
-		box->AddChild(slide);
 		mw[c*2] = slide;
 		
+		box->AddChild(slide);
+
+		box->AddChild(channel);
 		// RIGHT
 
 		msg = new BMessage(ST_MIXER);
 		msg->AddInt16("index",c);
 		msg->AddBool("left",false);
 		slide = new BSlider(
-			BRect(20,50+H2*c + 2*H,295,50+H2*c + H2-1),
-			"Amp", 0,
+			"Amp", NULL,
 			msg,
-			0, 255 );
+			0, 255, B_HORIZONTAL );
 
 		slide->UseFillColor(true, &fillc);
 		slide->SetHashMarkCount(11);
 		slide->SetHashMarks(B_HASH_MARKS_TOP);
 		slide->SetValue(song->GetChannel(c)->right);
  		slide->SetTarget(this);
-		box->AddChild(slide);
 		mw[c*2+1] = slide;
+
+		box->AddChild(slide);
 		
-		// VUMETER
-		PeakView* vumeter = new PeakView("Vu", true, song->GetPlayer(c));
-		box->AddChild(vumeter);
-		vumeter->ResizeTo(275, H);
-		vumeter->MoveTo(20, 50+H2*c + H);
-		vumeter->SetChannelCount(1);
-		vu[c] = vumeter;
+		mixlay->AddChild(box);
 	}
-	
 	mixwin->SetPulseRate(50000);
 	
 	mixwin->AddToSubset(this);
