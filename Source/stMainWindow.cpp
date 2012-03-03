@@ -26,14 +26,12 @@ Distributed under the terms of the MIT Licence. */
 stMainWindow::stMainWindow(BRect frame, txt &flat):
 	BWindow(frame, "sawteeth Editor", B_DOCUMENT_WINDOW, B_CURRENT_WORKSPACE)
 {
-
 	file_name=new BPath();
 
 	playing = false;
 	zoom = .5;
 
 	SetPulseRate(30000);
-
 	
 	memset(pw,0,PARTS*sizeof(stPartWindow*));
 	memset(iw,0,INS*sizeof(stInstrumentWindow*));

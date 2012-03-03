@@ -4,6 +4,8 @@ Distributed under the terms of the MIT Licence. */
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <GroupLayout.h>
+
 #include "stPartWindow.h"
 #include "stCurveControl.h"
 #include "stTrackerView.h"
@@ -13,9 +15,9 @@ Distributed under the terms of the MIT Licence. */
 
 stPartWindow::stPartWindow(stMainWindow *win, BPoint point, Part *part_to_edit,
 	Song *song)
-	: BWindow(BRect(point, point + BPoint(300, 300)), "",
+	: BWindow(BRect(point, point), "",
 		B_FLOATING_WINDOW_LOOK,	B_FLOATING_SUBSET_WINDOW_FEEL,
-		B_NOT_H_RESIZABLE)
+		B_NOT_H_RESIZABLE | B_AUTO_UPDATE_SIZE_LIMITS)
 {
 	main_win = win;
 	part = part_to_edit;
@@ -43,27 +45,19 @@ stPartWindow::stPartWindow(stMainWindow *win, BPoint point, Part *part_to_edit,
 		ST_TYPE_NIBBLE,
 		ST_TYPE_SPACE};
 
-	BRect rect = BRect(0,0,0,0);
-	menu = new BMenuBar(rect, "menu");
+	menu = new BMenuBar("menu");
 		BMenu* partMenu = new BMenu("Part");
 			// TODO : switch the label to Stop while playing
 			play = new BMenuItem("Play", new BMessage(ST_PPLAY_START), ' ', B_COMMAND_KEY);
 			partMenu->AddItem(play);
 		menu->AddItem(partMenu);
 
-	float bottom = menu->Bounds().bottom;
-	bottom += 40;
-
-	tracker_control = new stTrackerControl(BRect(5, bottom, 120, bottom + 235), part->len,
+	tracker_control = new stTrackerControl(part->len,
 		part->sps, type_list, sizeof(type_list)>>2,
-		new BMessage(MSG_FROM_TRACKER), B_FOLLOW_TOP_BOTTOM);
-	float right_border = tracker_control->Frame().right;
+		new BMessage(MSG_FROM_TRACKER));
 
-	bottom -= 20;
-
-	name_string = new BTextControl(BRect(5, bottom, right_border, bottom + 20),
-		"name_string", "Name:", part->name, new BMessage(ST_NEW_PART_NAME));
-	name_string->SetDivider(30);
+	name_string = new BTextControl(
+		"name_string", "Name", part->name, new BMessage(ST_NEW_PART_NAME));
 
 	FullUpdate(0, part->len - 1);
 
@@ -74,21 +68,14 @@ stPartWindow::stPartWindow(stMainWindow *win, BPoint point, Part *part_to_edit,
 	delButton->SetFontSize(14);
 	*/
 
-	ResizeTo(right_border + 5.0, 300);
+	BGroupLayout *box = new BGroupLayout(B_VERTICAL, 0);
 
-	BRect frame = Bounds();
-	frame.bottom += 1.0;
-	frame.right += 1.0;
+	SetLayout(box);
+	AddChild(menu);
+	AddChild(name_string);
+	AddChild(tracker_control);
 
-	BBox *box = new BBox(frame, "background", B_FOLLOW_ALL_SIDES);
-
-	AddChild(box);
-	box->AddChild(menu);
-	box->AddChild(tracker_control);
-	box->AddChild(name_string);
 	UpdateTitle();
-	
-	ComputeSizeLimits();
 }
 
 
@@ -199,8 +186,6 @@ void stPartWindow::MessageReceived(BMessage *message)
 						tracker_control->SetFieldContent(i,9,part->steps[i].eff & 0xf);
 					}
 					main_win->PostMessage(ST_PART_CHANGED);
-					
-					ComputeSizeLimits();
 				}break;
 				case ST_SET_SPEED:
 				{
@@ -316,13 +301,17 @@ void stPartWindow::Zoom(BPoint lefttop, float wide, float high)
 }
 
 
+/*
 void stPartWindow::ComputeSizeLimits()
 {
 	font_height height;
 	be_fixed_font->GetHeight(&height);
 	
 	float fixedAreaSize = menu->Bounds().bottom + name_string->Bounds().Height() * 3 + 24;
-	float Mh = tracker_control->TrackerView()->OptimalSize() + fixedAreaSize;
+	float Mh;
+	tracker_control->TrackerView()->GetPreferredSize(NULL, &Mh);
+   	Mh += fixedAreaSize;
 	float right_border = tracker_control->Frame().right;
 	SetSizeLimits(right_border, right_border, 5 * (height.ascent+height.descent) + fixedAreaSize, Mh);
 }
+*/

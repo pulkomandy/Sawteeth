@@ -17,13 +17,11 @@ class stPartWindow:public BWindow
 public:
 	stPartWindow(stMainWindow *win, BPoint point,Part *part_to_edit, Song *song);
 	~stPartWindow();
-//	virtual bool QuitRequested();
 	virtual void MessageReceived(BMessage *message);
 	void Zoom(BPoint lefttop, float wide, float high);
 private:
 	void FullUpdate(int8 low, uint8 high);
 	void UpdateTitle();
-	void ComputeSizeLimits();
 	
 	stMainWindow *main_win;
 	stTrackerControl *tracker_control;

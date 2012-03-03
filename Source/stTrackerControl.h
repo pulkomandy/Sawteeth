@@ -6,8 +6,7 @@ Distributed under the terms of the MIT Licence. */
 
 #include <View.h>
 #include <TextControl.h>
-#include <stdio.h>
-#include <Box.h>
+#include <GroupView.h>
 
 #include "song.h"
 #include "stTrackerView.h"
@@ -18,25 +17,20 @@ enum
 	ST_SET_SPEED
 };
 
-class stTrackerControl:public BBox
+class stTrackerControl:public BGroupView
 {
 public:
-	stTrackerControl(BRect bounds,uint8 num_lines, uint8 speed, field_type *type_list,uint8 num_fields,BMessage *message,int32 resize);
+	stTrackerControl(uint8 num_lines, uint8 speed, field_type *type_list,uint8 num_fields,BMessage *message);
 	~stTrackerControl();
 
-	virtual void FrameResized(float w,float h);
-	
 	void SetLength(uint8);
 	uint8 FieldContent(uint8 line,uint8 field);
 	void SetFieldContent(uint8 line,uint8 field,uint8 data);
 
-	BView *View();
-	
 	stTrackerView *TrackerView();
 
 private:
 	stTrackerView *tracker_view;
-	BRect tracker_frame;
 	BMessage *return_message;
 	BTextControl *length_string;
 	BTextControl *speed_string;

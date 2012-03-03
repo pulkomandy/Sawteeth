@@ -3,8 +3,10 @@ Distributed under the terms of the MIT Licence. */
 
 #include "stTrackerView.h"
 
-stTrackerView::stTrackerView(BRect bounds,uint8 num_lines,field_type *type_list,uint8 num_fields,BMessage *message)
-	: BView(bounds,"CurveView",B_FOLLOW_NONE,B_FRAME_EVENTS)
+#include <Window.h>
+
+stTrackerView::stTrackerView(uint8 num_lines,field_type *type_list,uint8 num_fields,BMessage *message)
+	: BGroupView(B_VERTICAL, 0.0f)
 {
 	octave = 4;
 	entry_count=0;
@@ -25,7 +27,8 @@ stTrackerView::stTrackerView(BRect bounds,uint8 num_lines,field_type *type_list,
 	entry_width=(uint16)rect.Width();
 
 	SetLength(num_lines);
-	ResizeTo(entry_width,Frame().Height());
+
+	SetExplicitMinSize(BSize(entry_width, 9 * entry_height));
 }
 
 stTrackerView::~stTrackerView()
@@ -61,8 +64,7 @@ void stTrackerView::SetLength(uint8 length)
 		for (i=0;i<entry_count;i++) tmp_list[i]=entry_list[i];
 		for (i=entry_count;i<length;i++)
 		{
-			BPoint point(0,i*entry_height);
-			tmp_list[i]=new stTrackerEntry(point,field_count,field_list);
+			tmp_list[i]=new stTrackerEntry(field_count,field_list);
 			uint8 j;
 			for(j=0;j<field_count;j++) 
 				if (field_list[j]==ST_TYPE_INDEX) tmp_list[i]->SetFieldContent(j,i);
@@ -72,22 +74,29 @@ void stTrackerView::SetLength(uint8 length)
 		entry_list=tmp_list;
 		entry_count=length;
 	}
+
 	UpdateScrollbars();
 }
 
 void stTrackerView::UpdateScrollbars()
 {
+	if (Parent() == NULL) return;
+	float h = Parent()->Bounds().Height();
+	UpdateScrollbars(h);
+}
+
+void stTrackerView::UpdateScrollbars(float height)
+{
 	BScrollBar *sb;
 	if ((sb=ScrollBar(B_VERTICAL))!=NULL)
 	{
-		// TODO why do I have to do +2 here ?
-		float range=(entry_count + 2)*entry_height-Frame().Height();
+		float range=entry_count*entry_height - height;
 
-		sb->SetProportion(Frame().Height()/((entry_count+2)*entry_height));
+		sb->SetProportion(height/(entry_count*entry_height));
 		sb->SetRange(0,range);
 		// Steps are 1 line for small steps
 		//   and 1/2 visible window for large steps
-		sb->SetSteps(entry_height, Parent()->Frame().Height() / 2.0);
+		sb->SetSteps(entry_height, height / 2.0);
 	}
 }
 

@@ -6,14 +6,16 @@ Distributed under the terms of the MIT Licence. */
 
 #include "stTrackerEntry.h"
 
-class stTrackerView:public BView
+#include <GroupView.h>
+
+class stTrackerView:public BGroupView
 {
 public:
-	stTrackerView(BRect bounds,uint8 num_lines,field_type *type_list,uint8 num_fields,BMessage *message);
+	stTrackerView(uint8 num_lines,field_type *type_list,uint8 num_fields,BMessage *message);
 	virtual ~stTrackerView();
 
 	void SetLength(uint8 length);
-	void UpdateScrollbars();
+	void UpdateScrollbars(float height);
 	virtual void AttachedToWindow();
 
 	virtual void FrameResized(float w,float h);
@@ -29,8 +31,15 @@ public:
 	uint8 Octave();
 	void SetOctave(uint8 oct);
 	
-	int OptimalSize() { return entry_height * entry_count; }
+	void GetPreferredSize(float*w, float*h)
+	{
+		if(h)
+			*h = entry_height * entry_count;
+		if(w)
+			*w = entry_width;
+	}
 private:
+	void UpdateScrollbars();
 
 	uint16 entry_height;
 	uint16 entry_width;

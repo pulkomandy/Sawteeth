@@ -32,7 +32,6 @@ private:
 	stMainWindow *m_main_win;
 
 	BTextControl *m_loop;
-	BBox *m_box;
 	
 	BSlider *m_resonance;
 	BSlider *m_vibrato_speed;

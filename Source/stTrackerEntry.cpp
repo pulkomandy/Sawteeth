@@ -57,7 +57,8 @@ char *note_list[]=
 	"b-",
 };
 
-stTrackerEntry::stTrackerEntry(BPoint point,uint8 num_fields,field_type *type_list):BView(BRect(point,point+BPoint(1,1)),"TrackerEntry",B_FOLLOW_NONE,B_NAVIGABLE/*_JUMP*/+B_WILL_DRAW)
+stTrackerEntry::stTrackerEntry(uint8 num_fields,field_type *type_list):
+	BView("TrackerEntry",B_NAVIGABLE/*_JUMP*/+B_WILL_DRAW)
 {
 //	printf("stTrackerEntry::stTrackerEntry()\n");
 	current_field = 3;
@@ -86,11 +87,18 @@ stTrackerEntry::stTrackerEntry(BPoint point,uint8 num_fields,field_type *type_li
 	}
 	font_height height;
 	GetFontHeight(&height);
-	ResizeTo(width,height.ascent+height.descent);
+	//ResizeTo(width,height.ascent+height.descent);
 
 	SetViewColor(ST_LOW_COLOR);
 	SetLowColor(ST_LOW_COLOR);
 	SetHighColor(ST_HIGH_COLOR);
+
+	BRect r;
+	PreferredSize(&r, type_list, num_fields);
+
+	BSize sz(r.Width(), r.Height());
+	SetExplicitMinSize(sz);
+	SetExplicitMaxSize(sz);
 }
 
 stTrackerEntry::~stTrackerEntry()

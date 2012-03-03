@@ -11,10 +11,10 @@ Distributed under the terms of the MIT Licence. */
 stCurveView::stCurveView(BRect bounds,char *name,BMessage *message):BView(bounds,"CurveView",B_FOLLOW_NONE,B_NAVIGABLE/*_JUMP*/+B_WILL_DRAW)
 {
 	m_name = name;
-	BFont name_font(be_bold_font);
+	BFont name_font(be_plain_font);
 	font_height height;
 	name_font.GetHeight(&height);
-	m_name_pos = BPoint(bounds.Width() - name_font.StringWidth(name) - 3.0, height.ascent + 1.0);
+	m_name_pos = BPoint(bounds.Width() - name_font.StringWidth(name) - 1.0, height.ascent + 1.0);
 	SetFont(&name_font);
 
 	m_message = message;
@@ -143,7 +143,7 @@ void stCurveView::CalcLimits()
 	}
 }
 
-void stCurveView::Draw(BRect )
+void stCurveView::Draw(BRect area)
 {
 	uint32 i;
 	for (i=0;i<knob_count;i++)
@@ -173,6 +173,7 @@ void stCurveView::Draw(BRect )
 	SetHighColor(0,0,0,60);
 	SetDrawingMode(B_OP_ALPHA);
 	DrawString(m_name, m_name_pos);
+	DrawString("time", BPoint(width - StringWidth("time"), m_height - 8));
 	SetDrawingMode(B_OP_COPY);
 	SetHighColor(136,136,234,255);
 }
@@ -186,7 +187,7 @@ void stCurveView::MouseUp(BPoint where)
 	for (i = KnobCount(); --i >= 0;)
 	{
 		BPoint vector = where - knob[i]->Position();
-		int sqr = vector.x * vector.x + vector.y * vector.y;
+		int sqr = (int)vector.x * (int)vector.x + (int)vector.y * (int)vector.y;
 		if (sqr < dist)
 		{
 			dist = sqr;

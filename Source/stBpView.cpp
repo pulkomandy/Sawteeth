@@ -47,7 +47,7 @@ void stBPView::Draw(BRect)
 	int count = _s->BreakPointCount();
 	BreakPoint *bpp = _s->GetBreakPointByIndex(0);
 	
-	int height = Bounds().Height();
+	float height = Bounds().Height();
 
 	for (int c = 0 ; c < count ; c++){
 		float start = (float)bpp->PAL * _z;

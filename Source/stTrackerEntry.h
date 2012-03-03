@@ -40,7 +40,7 @@ class stTrackerEntry:public BView
 {
 friend class stTrackerView;
 public:
-	stTrackerEntry(BPoint point,uint8 num_fields,field_type *type_list);
+	stTrackerEntry(uint8 num_fields,field_type *type_list);
 	~stTrackerEntry();
 	
 	virtual void MakeFocus(bool focused=true);
