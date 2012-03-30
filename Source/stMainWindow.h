@@ -17,6 +17,7 @@ Distributed under the terms of the MIT Licence. */
 
 class stInstrumentWindow;
 class PeakView;
+class BFilePanel;
 
 
 class stMainWindow : public BWindow

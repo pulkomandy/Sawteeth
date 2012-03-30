@@ -11,7 +11,7 @@ char defsong [] = {
 #include "Source/data/defaultsong.h"
 };
 
-stApp::stApp(char *signature):BApplication(signature)
+stApp::stApp(const char *signature):BApplication(signature)
 {
 	dropped = false;
 	(new stAboutWindow())->Show();

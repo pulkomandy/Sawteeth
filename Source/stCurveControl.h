@@ -16,7 +16,7 @@ enum action
 class stCurveControl:public BView
 {
 public:
-	stCurveControl(BRect rect,char *name,BMessage *message);
+	stCurveControl(BRect rect,const char *name,BMessage *message);
 	~stCurveControl();
 	
 	virtual void Draw(BRect rect);

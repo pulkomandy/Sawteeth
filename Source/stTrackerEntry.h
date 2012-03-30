@@ -11,7 +11,7 @@ const rgb_color ST_HIGH_COLOR = {0,0,0,255};
 const rgb_color ST_LOW_COLOR = {216,216,216,255};
 
 extern char keynote_list[];
-extern char *note_list[];
+//extern const char *note_list[];
 
 enum
 {
@@ -74,7 +74,7 @@ private:
 	field *fields;
 	uint8 field_count;
 	uint16 font_width;
-	uint8 field_width[7];
+	static uint8 field_width[7];
 };
 
 // inline definitions

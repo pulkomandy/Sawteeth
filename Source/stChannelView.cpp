@@ -14,7 +14,7 @@ stChannelView::stChannelView(Song *song, Channel *channel, BRect frame) : BView(
 	s = song;
 	chan = channel;
 	
-	int col = 222 - ( (channel-(song->GetChannel(0)) & 1) * 10);
+	int col = 222 - ((channel - song->GetChannel(0)) & 1) * 10;
 	SetViewColor(col,col,col);
 	height = (int)frame.Height();
 	

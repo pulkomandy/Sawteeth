@@ -17,7 +17,7 @@ public:
 	~txt();
 	status_t InitCheck();
 	
-	char *FileName();
+	const char *FileName();
 	bool IsMemory();
 
 	// call this to create a binary file
@@ -31,16 +31,16 @@ public:
 	bool Eof();
 	
 	// write
-	void Comment(char *txt);
+	void Comment(const char *txt);
 	void Comment(int val);
 	void Val(int val, int numbytes = 1);
-	void String(char *txt);	// nullterminated
+	void String(const char *txt);	// nullterminated
 
 private:
 
 	int AtomRead();
 			
-	void jntok(char *b, char *m);
+	void jntok(char *b, const char *m);
 	FILE *f;
 	char *fname;
 

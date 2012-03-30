@@ -15,6 +15,7 @@ Distributed under the terms of the MIT Licence. */
 #include "stlimits.h"
 
 // välj vad som skall kompileras
+class Player;
 
 
 class Song
@@ -47,7 +48,7 @@ public:
 	void		SetPartToPlay( uint8 part = 0 , uint8 step = 0 );
 	void		SetPartPos( uint8 step = 0 );
 
-	void		Save( char *filename, bool bin=false , bool no_names = false);
+	void		Save(const char *filename, bool bin=false , bool no_names = false);
 
 	// // // // // // // // // // CHANNEL stuff
 	uint8		ChannelCount();

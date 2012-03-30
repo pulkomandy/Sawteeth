@@ -14,7 +14,7 @@ Distributed under the terms of the MIT Licence. */
 class stApp:public BApplication
 {
 public:
-	stApp(char *signature);
+	stApp(const char *signature);
 	~stApp();
 	virtual void MessageReceived(BMessage *);
 	virtual void RefsReceived(BMessage *);

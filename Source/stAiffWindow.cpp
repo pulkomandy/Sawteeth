@@ -125,7 +125,7 @@ void stAiffWindow::Thread()
 		f.Write(obuf, 2 * 2 * sbufs);
 	}
 
-	char *buffer="audio/x-aiff";
+	const char *buffer="audio/x-aiff";
 	f.WriteAttr("BEOS:TYPE",B_STRING_TYPE,0,buffer,strlen(buffer)+1);
 
 fprintf(stderr,"\nmin = %f, max = %f\n",min,max);

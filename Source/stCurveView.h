@@ -13,7 +13,7 @@ Distributed under the terms of the MIT Licence. */
 class stCurveView:public BView
 {
 public:
-	stCurveView(BRect rect,char *name,BMessage *message);
+	stCurveView(BRect rect, const char *name,BMessage *message);
 	~stCurveView();
 	
 	virtual void Draw(BRect rect);
@@ -37,7 +37,7 @@ private:
 	uint8 knob_count;
 	float m_height;
 	float width;
-	char *m_name;
+	const char *m_name;
 	BPoint m_name_pos;
 };
 

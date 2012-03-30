@@ -37,7 +37,7 @@ Distributed under the terms of the MIT Licence. */
 	}
 }
 
-char *txt::FileName(){
+const char *txt::FileName(){
 	if (memory)
 		return "Memory";
 	else
@@ -72,7 +72,7 @@ void txt::IsBin(bool b)
 	bin = b;
 }
 
-void txt::jntok(char *b, char *m)
+void txt::jntok(char *b, const char *m)
 {
 	bool cont=true;
 	int mc=strlen(m);
@@ -88,7 +88,7 @@ void txt::jntok(char *b, char *m)
 	}	
 }
 
-void txt::String(char *txt)
+void txt::String(const char *txt)
 {
 	fputs(txt,f);
 	if (bin)
@@ -102,7 +102,7 @@ void txt::Comment(int val)
 	if (!bin) fprintf(f,"%x",val);
 }
 
-void txt::Comment(char *txt)
+void txt::Comment(const char *txt)
 {
 	if (!bin) fputs(txt,f);
 }

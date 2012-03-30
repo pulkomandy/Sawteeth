@@ -21,7 +21,7 @@ char keynote_list[]=
 	0,2,4,5,7,9,11,12,14,16
 };
 
-static char hex_list[]=
+static const char hex_list[]=
 {
 	'0',
 	'1',
@@ -41,7 +41,7 @@ static char hex_list[]=
 	'f'
 };
 
-char *note_list[]=
+static const char *note_list[]=
 {
 	"c-",
 	"c#",
@@ -57,6 +57,8 @@ char *note_list[]=
 	"b-",
 };
 
+uint8 stTrackerEntry::field_width[7];
+
 stTrackerEntry::stTrackerEntry(uint8 num_fields,field_type *type_list):
 	BView("TrackerEntry",B_NAVIGABLE/*_JUMP*/+B_WILL_DRAW)
 {
@@ -68,7 +70,9 @@ stTrackerEntry::stTrackerEntry(uint8 num_fields,field_type *type_list):
 
 	SetFont(be_fixed_font);
 
-	uint16 font_width= (uint16) be_fixed_font->StringWidth("0"); // retreives the font width
+	// TODO filling this table should only be done once.
+	uint16 font_width= (uint16) be_fixed_font->StringWidth("0");
+		// retreives the font width
 	field_width[0]=3;
 	field_width[1]=3;
 	field_width[2]=2*font_width+1;
@@ -108,18 +112,6 @@ stTrackerEntry::~stTrackerEntry()
 void stTrackerEntry::PreferredSize(BRect *rect,field_type *type_list,uint8 num_fields)
 {
 	uint8 i;
-
-	uint16 font_width=(uint16)be_fixed_font->StringWidth("0"); // retreives the font width
-
-	uint8 field_width[5];
-	field_width[0]=3;
-	field_width[1]=3;
-	field_width[2]=2*font_width+1;
-	field_width[3]=font_width+1;
-	field_width[4]=font_width+1;
-	field_width[5]=font_width+1;
-	field_width[6]=3*font_width+1;
-
 	uint16 width=0;
 	for (i=0;i<num_fields;i++)
 		width+=field_width[type_list[i]];
@@ -322,7 +314,7 @@ void stTrackerEntry::Draw(BRect )
 		{
 			case ST_TYPE_SEPARATOR:
 			{
-				BPoint start(x_pos+(x_pos+field_width[fields[i].type]-1)>>1,0);
+				BPoint start(x_pos + ((field_width[fields[i].type]-1)>>1),0);
 				BPoint end=start;
 				end+=BPoint(0,Frame().Height()-1);
 				StrokeLine(start,end);

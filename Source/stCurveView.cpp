@@ -8,7 +8,8 @@ Distributed under the terms of the MIT Licence. */
 
 #include "stlimits.h"
 
-stCurveView::stCurveView(BRect bounds,char *name,BMessage *message):BView(bounds,"CurveView",B_FOLLOW_NONE,B_NAVIGABLE/*_JUMP*/+B_WILL_DRAW)
+stCurveView::stCurveView(BRect bounds, const char *name, BMessage *message)
+	: BView(bounds,"CurveView",B_FOLLOW_NONE,B_NAVIGABLE/*_JUMP*/+B_WILL_DRAW)
 {
 	m_name = name;
 	BFont name_font(be_plain_font);

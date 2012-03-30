@@ -3,7 +3,9 @@ Distributed under the terms of the MIT Licence. */
 
 #include "stCurveControl.h"
 
-stCurveControl::stCurveControl(BRect bounds,char *name, BMessage *message):BView(bounds,"CurveView",B_FOLLOW_NONE,B_WILL_DRAW)
+stCurveControl::stCurveControl(BRect bounds, const char *name,
+	BMessage *message)
+	: BView(bounds,"CurveView",B_FOLLOW_NONE,B_WILL_DRAW)
 {
 	SetViewColor(216,216,216);
 
