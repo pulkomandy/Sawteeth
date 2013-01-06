@@ -2,34 +2,38 @@
 </head>
 <body>
 
-<h1>SawTeeth Documentation (1.2)</h1>
+<h1>SawTeeth Documentation (1.3)</h1>
 <p>
 I'm glad that you're interested in sawteeth (you are
 reading the readme you know).
-<p>
-Arvid Norberg developed big parts of the editor.<br>
-Most of the filtercode comes from Stefan H&aring;llen
+<h2>Credits</h2>
+<ul>
+	<li>Player code, ideas and design by Jonas Norberg.</li>
+	<li>Arvid Norberg developed big parts of the editor.</li>
+	<li>Most of the filtercode comes from Stefan H&aring;llen.</li>
+	<li>Since the 1.3 version, development done by Adrien Destugues.</li>
+</ul>
 <p>
 If you find any error in any program or the
 manual please let me know, I even care about
 faulty grammar/spelling (I don't speak
-native English).<br>
+native English).</p><p>
 I am also interested in cool ideas and really cool
-features that you miss in the player or in the editor.
+features that you miss in the player or in the editor.</p>
 <p>
-Mail to: <a href="mailto:c97jng@cs.umu.se">c97jng@cs.umu.se</a>
+Mail to: <a href="mailto:pulkomandy@pulkomandy.tk">pulkomandy@pulkomandy.tk</a>
 <p>
-Sawteeth homepage is:<br>
-<a href="http://www.acc.umu.se/~bedev/software/sawteeth/">
-http://www.acc.umu.se/~bedev/software/sawteeth/</a><br>
-<p>
+Sawteeth homepage is <a href="http://pulkomandy.tk/projects/sawteeth">http://pulkomandy.tk/projects/sawteeth/</a>. Also check out the historical page <a href="http://audjoo.com/old/software/sawteeth/">http://audjoo.com/old/software/sawteeth/</a>
+
+</p>
 
 
 
 <hr size=5>
+<h1>Making music with Sawteeth</h1>
 A Sawteeth song is made up by several pieces.
-Instruments are used in parts, who are used in
-channels, who are used in the song.
+Instruments are used in parts, which are used in
+channels, which are used in the song.
 <br>
 Hexadecimal and Decimal are used where seen fit,
 witch you easily could be tricked by.
@@ -41,9 +45,8 @@ are self-explaining or explained in the GUI.
 
 <h2>Sequencer</h2>
 <p>
-Not very intuitive controls I'm afraid. Not too
-much mouse support<br>
-Click a part to make it 'active'.
+Not very intuitive controls I'm afraid.<br>
+Click a part to make it 'active'. Double click to open the part editor.
 <p>
 On the parts (the sqares) you see three numbers, the first is partnumber,
 the second is transpose and the last is damping.
@@ -88,7 +91,7 @@ trackers) style keyboard.<p>
    +------- note and octave</pre>
 <h3>Effects</h3>
 Maybe more effects will be added in the future,
-please only use documented effects (wich should be easy since there are none).
+please only use documented effects (others will do nothing, but that will change in future versions).
 <p>
 Unlike older trackers sawteeth effects continues when you have started them.
 If you write a0 to lower the volume the volume decreases until the next note or other command that affects the volume (bx,cx)
@@ -100,7 +103,7 @@ If you write a0 to lower the volume the volume decreases until the next note or 
 <tr><td align=right><b>2 x</b></td><td> glide pitch down		</td></tr>
 <tr><td align=right><b>3 x</b></td><td> glide pitch to note	(will glide to 0Hz if no note)	</td></tr>
 <tr><td align=right><b>4 x</b></td><td> set PWM offset			</td></tr>
-<tr><td align=right><b>5 x</b></td><td> set resonance (is not multiplicated width the reso setting in the instrument)			</td></tr>
+<tr><td align=right><b>5 x</b></td><td> set resonance (is not multiplicated with the reso setting in the instrument)			</td></tr>
 <tr><td align=right><b>7 x</b></td><td> glide filter closed		</td></tr>
 <tr><td align=right><b>8 x</b></td><td> glide filter open		</td></tr>
 <tr><td align=right><b>9 x</b></td><td> set filter				</td></tr>
@@ -113,7 +116,7 @@ If you write a0 to lower the volume the volume decreases until the next note or 
 <h2>Instrument editor</h2>
 A block scheme over the sound creation looks something like this: (boost is only used with clipping)
 <p>
-wave -> amplitude -> filter -> boost ->clipping
+wave -&gt; amplitude -&gt; filter -&gt; boost -&gt; clipping
 <p>
 <h3>Envelope - editors</h3>
 There are two editors for curves (envelopes, like ADSR), one controlling
@@ -136,9 +139,9 @@ At the bottom of the window there are sliders that control the lfo's for PWM (on
    +-------- note and octave</pre>
 
 Below the tracker are three textgadgets: lenght, speed and loop.
-The number in the Speed-textgadget is PAL's per step.
+The number in the Speed-textgadget is PAL's (1/50th of a second) per step.
 The number in the Loop-textgadget is the tracker-position to go when playing reached end.
-To not loop enter the last position in the tracker. 
+To not loop, enter the last position in the tracker. 
 <h3>Waveforms</h3>
 <table>
 <tr><td><b>0</b></td><td> Hold </td></tr>
@@ -168,7 +171,7 @@ Please tell me some tips that I can add.
 	To make a song really small (in bytes):
 	<ul>
 	<li>
-		Be sure to use File->ExportRelease to save your completed song. 
+		Be sure to use File-&gt;ExportRelease to save your completed song. 
 	</li>
 	<li>
 		Try to reuse parts as often as you
@@ -214,8 +217,20 @@ Please tell me some tips that I can add.
 </li>
 </ul>
 
-<hr size=5>
+<hr size="5" />
 
+<h1>Using your song elsewhere</h1>
+<p>Sawteeth comes with a library called libST to replay your music in another application. The lib has a C++ API which is used as follows:
+<ul>
+	<li>Load your song data in a txt object. This can be done either from a file or a buffer in memory</li>
+	<li>Create a Song from your txt object.</li>
+	<li>Call the Play() method of the Song to fill your audio buffer</li>
+</ul>
+</p>
+
+<p>Just want other people to listen to your song ? They can also use APlayer to play it.</p>
+
+<hr size=5>
 <div align=right><i>Jonas Norberg.</i></div>
 </body>
 </html>
