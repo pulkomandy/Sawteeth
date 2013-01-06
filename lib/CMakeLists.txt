@@ -1,4 +1,4 @@
-add_library(ST SHARED source/ins_part_channel.cpp source/insply.cpp source/lfo.cpp source/player.cpp source/song.cpp source/txt.cpp source/wave.cpp)
+add_library(ST SHARED ${STLIB_SOURCES})
 set_target_properties(ST PROPERTIES
 	COMPILE_FLAGS -Os
 	LINK_FLAGS -Os

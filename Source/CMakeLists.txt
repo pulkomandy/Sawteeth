@@ -13,6 +13,12 @@ add_executable(Sawteeth
 	stTrackerControl.cpp stTrackerEntry.cpp stTrackerView.cpp
 	stsp.cpp
 	PeakView.cpp
+
+	${STLIB_SOURCES}
+)
+
+set_target_properties(Sawteeth PROPERTIES
+	COMPILE_FLAGS -DTARGET_EDITOR
 )
 
 add_custom_command(TARGET Sawteeth POST_BUILD 
@@ -20,4 +26,4 @@ add_custom_command(TARGET Sawteeth POST_BUILD
 	COMMAND xres -o ${CMAKE_BINARY_DIR}/Sawteeth Resource.rsrc
 	DEPENDS Resource.rdef)
 
-target_link_libraries(Sawteeth ST be tracker media translation)
+target_link_libraries(Sawteeth be tracker media translation)

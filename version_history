@@ -1,3 +1,13 @@
+1.3 --------------------------------------------------------------------
+Fixed bugs:
+	Sometimes the parts were not showing in the sequencer
+	Avoid flickering on the sequencer when scrolling
+	Easier dragging of control points for instrument curves
+Improvements:
+	This version now runs on Haiku
+	Make the zoom buttons on all window do sane things
+	vu-meters for each channel
+	Double clicking a part in the sequencer opens part editor
 1.2 --------------------------------------------------------------------
 Fixed bugs:
 	When deleteing a channel volume controls are moved also.
