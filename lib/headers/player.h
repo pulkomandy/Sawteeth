@@ -6,12 +6,12 @@ Distributed under the terms of the MIT Licence. */
 
 #include "types.h"
 #include "insply.h"
-#include "song.h"
+#include "stSong.h"
 
 class Player
 {
 public:
-	Player(Song *s, Channel *chn);
+	Player(stSong *s, Channel *chn);
 	~Player();
 
 	// if buffer was updated
@@ -27,7 +27,7 @@ private:
 	bool tmploop;
 	
 	InsPly *ip;
-	Song *song;
+	stSong *song;
 	ChStep *step;
 	Channel *ch;
 	

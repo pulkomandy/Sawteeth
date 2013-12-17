@@ -2,10 +2,10 @@
 Distributed under the terms of the MIT Licence. */
 
 #include "stBpView.h"
-#include "song.h"
+#include "stSong.h"
 #include <stdio.h> // remove this line
 
-stBPView::stBPView(BRect frame, Song *s) :
+stBPView::stBPView(BRect frame, stSong *s) :
 	BView(frame, "View",  B_FOLLOW_TOP, B_WILL_DRAW ),
 	_s(s),
 	_z(1)

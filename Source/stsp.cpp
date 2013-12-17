@@ -4,7 +4,7 @@ Distributed under the terms of the MIT Licence. */
 #include <stdio.h>
 #include <SoundPlayer.h>
 #include "stsp.h"
-#include "song.h"
+#include "stSong.h"
 
 void stsp::BufferProc(void *player_, void *buffer, size_t size, const media_raw_audio_format &format)
 {
@@ -31,7 +31,7 @@ void stsp::UsePartPlay(bool p)
 	usepartplay = p;
 }
 
-stsp::stsp(txt &flat):Song(flat)
+stsp::stsp(txt &flat):stSong(flat)
 {
 	UsePartPlay(false);
 	

@@ -13,7 +13,7 @@ Distributed under the terms of the MIT Licence. */
 #include <StorageKit.h>
 #include <GroupView.h>
 
-#include "song.h"
+#include "stSong.h"
 #include "stMainWindow.h"
 #include "stPartWindow.h"
 #include "stAiffWindow.h"
@@ -206,9 +206,9 @@ stMainWindow::~stMainWindow()
 }
 
 
-Song *stMainWindow::GetSong()
+stSong *stMainWindow::GetSong()
 {
-	return (Song*)song;
+	return (stSong*)song;
 }
 
 void stMainWindow::ConstructMixWin()
@@ -585,7 +585,7 @@ void stMainWindow::MessageReceived(BMessage *message)
 		BPath path(&temp);
 		path.Append(filename);
 
-		Song *temps = new Song(*song);
+		stSong *temps = new stSong(*song);
 		temps->Optimize();
 		temps->Save((char *)path.Path(),true,true);
 		SetFileType((char *)path.Path());

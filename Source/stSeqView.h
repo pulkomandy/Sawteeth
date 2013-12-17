@@ -4,7 +4,7 @@ Distributed under the terms of the MIT Licence. */
 #ifndef ST_SEQ_VIEW_H
 #define ST_SEQ_VIEW_H
 
-#include "song.h"
+#include "stSong.h"
 #include "stChannelView.h"
 #include "stBpView.h"
 #include "stdefs.h"
@@ -12,7 +12,7 @@ Distributed under the terms of the MIT Licence. */
 class stSeqView : public BView
 {
 public:
-	stSeqView(Song *s, BRect frame);
+	stSeqView(stSong *s, BRect frame);
 	~stSeqView();
 
 void	Pulse();
@@ -49,7 +49,7 @@ private:
 	int semi_channel;
 	int width;
 	int height;
-	Song *s;
+	stSong *s;
 	stChannelView *ps[CHN];
 	float m_z;
 	

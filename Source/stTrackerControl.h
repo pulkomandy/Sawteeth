@@ -8,7 +8,7 @@ Distributed under the terms of the MIT Licence. */
 #include <TextControl.h>
 #include <GroupView.h>
 
-#include "song.h"
+#include "stSong.h"
 #include "stTrackerView.h"
 
 enum

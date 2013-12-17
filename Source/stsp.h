@@ -5,9 +5,9 @@ Distributed under the terms of the MIT Licence. */
 #define STSP
 //////////////////////////////
 #include <SoundPlayer.h>
-#include "song.h"
+#include "stSong.h"
 
-class stsp : public Song {
+class stsp : public stSong {
 public:
 	stsp(txt &flat);	
 	~stsp();

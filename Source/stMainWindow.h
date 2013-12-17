@@ -42,7 +42,7 @@ public:
 	void ClosePartWin(Part *part);
 	void CloseInsWin(Ins *ins);
 	
-	Song *GetSong();
+	stSong *GetSong();
 	
 	bool IsPlaying() {return playing;}
 private:

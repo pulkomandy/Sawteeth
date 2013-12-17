@@ -6,7 +6,7 @@ Distributed under the terms of the MIT Licence. */
 #include "stTrackerView.h"
 #include "stTrackerEntry.h"
 #include "stMainWindow.h"
-#include "song.h"
+#include "stSong.h"
 #include "stdefs.h"
 
 #include <stdio.h>

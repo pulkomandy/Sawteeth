@@ -7,18 +7,18 @@ Distributed under the terms of the MIT Licence. */
 #define ST_BP_VIEW_H
 
 #include <View.h>
-#include "song.h"
+#include "stSong.h"
 
 class stBPView : public BView
 {
 public:
-	stBPView(BRect frame, Song *s);
+	stBPView(BRect frame, stSong *s);
 	
 void	Draw(BRect frame);
 void	SetZoom(float PixelsPerPAL);
 
 private:
-	Song * _s;
+	stSong * _s;
 	float _z;
 };
 

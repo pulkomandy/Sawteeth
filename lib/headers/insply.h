@@ -8,14 +8,14 @@ Distributed under the terms of the MIT Licence. */
 #include "wave.h"
 #include "lfo.h"
 
-class Song;
+class stSong;
 class Ins;
 class InsStep;
 
 class InsPly
 {
 public:
-	InsPly(Song *s);
+	InsPly(stSong *s);
 	bool Next(float *buffer, uint32 count);
 	void TrigADSR(uint8 i);
 	void SetPWMOffs(float a);
@@ -41,7 +41,7 @@ private:
 	float vamp,pamp;
 	float pwmoffs;
 	
-	Song *song;
+	stSong *song;
 	Wave *w;
 	Ins *ins;
 	InsStep *currstep;

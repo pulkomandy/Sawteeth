@@ -7,7 +7,7 @@ Distributed under the terms of the MIT Licence. */
 #include <Window.h>
 #include "stTrackerControl.h"
 #include "stChannelView.h"
-#include "song.h"
+#include "stSong.h"
 
 class stTrackerView;
 class stMainWindow;
@@ -15,7 +15,7 @@ class stMainWindow;
 class stPartWindow:public BWindow
 {
 public:
-	stPartWindow(stMainWindow *win, BPoint point,Part *part_to_edit, Song *song);
+	stPartWindow(stMainWindow *win, BPoint point,Part *part_to_edit, stSong *song);
 	~stPartWindow();
 	virtual void MessageReceived(BMessage *message);
 	void Zoom(BPoint lefttop, float wide, float high);
@@ -25,7 +25,7 @@ private:
 	
 	stMainWindow *main_win;
 	stTrackerControl *tracker_control;
-	Song *s;
+	stSong *s;
 	Part *part;
 	BTextControl *name_string;
 	

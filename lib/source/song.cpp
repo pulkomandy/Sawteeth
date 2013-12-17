@@ -5,7 +5,7 @@ Distributed under the terms of the MIT Licence. */
 #include <stdlib.h>
 #include <math.h>
 
-#include "song.h"
+#include "stSong.h"
 #include "txt.h"
 #include "player.h"
 
@@ -17,7 +17,7 @@ void *CALLOC(int s1, int s2)
 	return (void*)tmp;
 }
 
-void Song::Init()
+void stSong::Init()
 {
 	//////////////////////////////////////////////////////// calc-multiplyers
 	const float floor = (float)0.1;
@@ -87,7 +87,7 @@ void Song::Init()
 
 }
 
-/*_EXPORT*/ Song::Song(const Song &s)
+/*_EXPORT*/ stSong::stSong(const stSong &s)
 {
 	Init();
 	init = JNG_OK;
@@ -356,7 +356,7 @@ void Song::Init()
 
 }
 
-/*_EXPORT*/ Song::Song(txt &flat)
+/*_EXPORT*/ stSong::stSong(txt &flat)
 {
 	Init();
 	init = JNG_OK;
@@ -386,7 +386,7 @@ void Song::Init()
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*_EXPORT*/ status_t Song::Load(txt &t)
+/*_EXPORT*/ status_t stSong::Load(txt &t)
 {
 #ifdef TARGET_EDITOR
 	FreeSong();
@@ -647,7 +647,7 @@ void Song::Init()
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*_EXPORT*/ status_t Song::InitCheck(){
+/*_EXPORT*/ status_t stSong::InitCheck(){
 // check for big instruments
 	for (int c = 0 ; c < partcount ; c++){
 		for (int c2 = 0 ; c2 < parts[c].len ; c2++){
@@ -661,7 +661,7 @@ void Song::Init()
 	return init;
 }
 
-/*_EXPORT*/ void Song::FreeSong()
+/*_EXPORT*/ void stSong::FreeSong()
 {
 #ifdef TARGET_EDITOR
 	if (pp) delete pp;
@@ -712,7 +712,7 @@ void Song::Init()
 	breakpcount = 0;
 }
 
-/*_EXPORT*/ Song::~Song()
+/*_EXPORT*/ stSong::~stSong()
 {
 	if (0 != stereobuffer) delete stereobuffer;
 
@@ -724,12 +724,12 @@ void Song::Init()
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*_EXPORT*/ bool Song::Play(	float *buff,
+/*_EXPORT*/ bool stSong::Play(	float *buff,
 					uint32 FrameCount	)
 {
 // ----------------------
 // SoundPart
-//fprintf(stderr, "\nSong::Play()\n");
+//fprintf(stderr, "\nstSong::Play()\n");
 
 	float *bd = buff;
 //	float *bs = p[0]->Buffer();
@@ -812,7 +812,7 @@ void Song::Init()
 }
 
 
-inline void Song::MemMulMove( float *d, float *s, uint32 count, float l, float r)
+inline void stSong::MemMulMove( float *d, float *s, uint32 count, float l, float r)
 {
 //	fprintf(stderr,"%f,%f\n",l,r);
 	while ( count > 4 ){
@@ -837,7 +837,7 @@ inline void Song::MemMulMove( float *d, float *s, uint32 count, float l, float r
 	}
 }
 
-inline void Song::MemMulAdd( float *d, float *s, uint32 count, float l, float r)
+inline void stSong::MemMulAdd( float *d, float *s, uint32 count, float l, float r)
 {
 //	fprintf(stderr,"%f,%f\n",l,r);
 	while ( count > 4 ){
@@ -865,7 +865,7 @@ inline void Song::MemMulAdd( float *d, float *s, uint32 count, float l, float r)
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*_EXPORT*/ uint32 Song::GetPos()
+/*_EXPORT*/ uint32 stSong::GetPos()
 {
 	return PALs;
 }
@@ -873,7 +873,7 @@ inline void Song::MemMulAdd( float *d, float *s, uint32 count, float l, float r)
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*_EXPORT*/ void Song::SetPos(uint32 pals)
+/*_EXPORT*/ void stSong::SetPos(uint32 pals)
 {
 	smp_left = 0;
 	PALs = pals;
@@ -923,19 +923,19 @@ inline void Song::MemMulAdd( float *d, float *s, uint32 count, float l, float r)
 }
 
 
-float Song::Version(){ 			return (float)st_version/(float)1000.0; }
-float Song::LoaderVersion(){	return (float)ST_CURRENT_FILE_VERSION/(float)1000.0; }
+float stSong::Version(){ 			return (float)st_version/(float)1000.0; }
+float stSong::LoaderVersion(){	return (float)ST_CURRENT_FILE_VERSION/(float)1000.0; }
 
-char *Song::Name(){		return name;	}
-char *Song::Author(){	return author;	}
+char *stSong::Name(){		return name;	}
+char *stSong::Author(){	return author;	}
 
-void Song::SetName(const char *n)
+void stSong::SetName(const char *n)
 {
 	if (name) free (name);
 	name = strdup(n);
 }
 
-void Song::SetAuthor(const char *a)
+void stSong::SetAuthor(const char *a)
 {
 	if (author) free (author);
 	author = strdup(a);
@@ -943,7 +943,7 @@ void Song::SetAuthor(const char *a)
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*_EXPORT*/ uint32 Song::SimpLen()
+/*_EXPORT*/ uint32 stSong::SimpLen()
 {
 	int max = 0;
 	// beräkna sångens längd
@@ -960,7 +960,7 @@ void Song::SetAuthor(const char *a)
 	return max;
 }
 
-/*_EXPORT*/ uint32 Song::Sps()
+/*_EXPORT*/ uint32 stSong::Sps()
 {
 	return spspal;
 }
@@ -968,13 +968,13 @@ void Song::SetAuthor(const char *a)
 
 #ifdef TARGET_EDITOR
 
-Player* Song::GetPlayer(int i) {return p[i];}
+Player* stSong::GetPlayer(int i) {return p[i];}
 
-/*_EXPORT*/ void Song::PartPlay( float *buff, uint32 SampleCount )
+/*_EXPORT*/ void stSong::PartPlay( float *buff, uint32 SampleCount )
 {
 // ----------------------
 // SoundPart
-//fprintf(stderr, "\nSong::PartPlay(%p,%ld)\n",buff,SampleCount);
+//fprintf(stderr, "\nstSong::PartPlay(%p,%ld)\n",buff,SampleCount);
 
 	float *pbd = buff;
 
@@ -1012,16 +1012,16 @@ Player* Song::GetPlayer(int i) {return p[i];}
 	}
 };
 
-/*_EXPORT*/ void Song::SetPartToPlay( uint8 part, uint8 step)
+/*_EXPORT*/ void stSong::SetPartToPlay( uint8 part, uint8 step)
 {
-//	fprintf(stderr,"Song::SetPartToPlay( %d, %d)\n",part,step);
+//	fprintf(stderr,"stSong::SetPartToPlay( %d, %d)\n",part,step);
 	pchanstep.part = part;
 	psmp_left = 0;
 	
 	pp->JumpPos(0,step,0);
 };
 
-/*_EXPORT*/ void Song::SetPartPos(uint8 step)
+/*_EXPORT*/ void stSong::SetPartPos(uint8 step)
 {
 //		printf("PALs[%d] == Seq[%d] Step[%d] Rest[%d]\n",PALs,seqcount,stepcount,palcount);
 	pp->JumpPos(0,step,0);
@@ -1030,7 +1030,7 @@ Player* Song::GetPlayer(int i) {return p[i];}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*_EXPORT*/ void Song::Save(const char *filename,bool bin, bool no_names)
+/*_EXPORT*/ void stSong::Save(const char *filename,bool bin, bool no_names)
 {
 	txt t(filename,true);
 	if (JNG_OK!=t.InitCheck()) return;
@@ -1128,14 +1128,14 @@ Player* Song::GetPlayer(int i) {return p[i];}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*_EXPORT*/	uint8 Song::ChannelCount()		{ return channelcount;		}
-/*_EXPORT*/	uint8 Song::PartCount()			{ return partcount;			}
-/*_EXPORT*/	uint8 Song::InsCount()			{ return instrumentcount;	}
+/*_EXPORT*/	uint8 stSong::ChannelCount()		{ return channelcount;		}
+/*_EXPORT*/	uint8 stSong::PartCount()			{ return partcount;			}
+/*_EXPORT*/	uint8 stSong::InsCount()			{ return instrumentcount;	}
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*_EXPORT*/ Channel *Song::GetChannel( uint8 c)
+/*_EXPORT*/ Channel *stSong::GetChannel( uint8 c)
 {
 	if (c < channelcount)
 		return chan + c;
@@ -1144,7 +1144,7 @@ Player* Song::GetPlayer(int i) {return p[i];}
 }
 
 
-/*_EXPORT*/ uint8 Song::NewChannel()
+/*_EXPORT*/ uint8 stSong::NewChannel()
 {
 	if (channelcount >= CHN) return 0;
 
@@ -1160,7 +1160,7 @@ Player* Song::GetPlayer(int i) {return p[i];}
 	return channelcount-1;		
 }
 
-/*_EXPORT*/ status_t Song::RemoveChannel(uint8 c)
+/*_EXPORT*/ status_t stSong::RemoveChannel(uint8 c)
 {
 	// om det är den sista
 	if (channelcount <= 1) return JNG_ERROR;
@@ -1181,7 +1181,7 @@ Player* Song::GetPlayer(int i) {return p[i];}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*_EXPORT*/ Part *Song::GetPart( uint8 part )
+/*_EXPORT*/ Part *stSong::GetPart( uint8 part )
 {
 	if (part < partcount)
 		return parts + part;
@@ -1190,7 +1190,7 @@ Player* Song::GetPlayer(int i) {return p[i];}
 }
 
 
-/*_EXPORT*/ uint8 Song::NewPart( Part* copy_me )
+/*_EXPORT*/ uint8 stSong::NewPart( Part* copy_me )
 {
 	if (partcount>= PARTS ) return 0;
 
@@ -1213,7 +1213,7 @@ Player* Song::GetPlayer(int i) {return p[i];}
 }
 
 
-/*_EXPORT*/ status_t Song::RemovePart(uint8 part)
+/*_EXPORT*/ status_t stSong::RemovePart(uint8 part)
 {
 	// om det är den sista
 	if (partcount == 1) return JNG_ERROR;
@@ -1247,7 +1247,7 @@ Player* Song::GetPlayer(int i) {return p[i];}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*_EXPORT*/ Ins *Song::GetIns( uint8 i ){
+/*_EXPORT*/ Ins *stSong::GetIns( uint8 i ){
 	if (i < instrumentcount)
 		return ins + i;
 	else
@@ -1255,7 +1255,7 @@ Player* Song::GetPlayer(int i) {return p[i];}
 }
 
 
-/*_EXPORT*/ uint8 Song::NewIns( uint8 copy_me){
+/*_EXPORT*/ uint8 stSong::NewIns( uint8 copy_me){
 	if ( instrumentcount >= INS ) return 0;
 	ins[instrumentcount].Free();
 	ins[instrumentcount] = *(GetIns(copy_me));
@@ -1263,14 +1263,14 @@ Player* Song::GetPlayer(int i) {return p[i];}
 	return instrumentcount-1;
 }
 
-/*_EXPORT*/ uint8 Song::NewIns(txt &t){
+/*_EXPORT*/ uint8 stSong::NewIns(txt &t){
 	if ( instrumentcount >= INS ) return 0;
 	ins[instrumentcount].Load(t, st_version);
 	instrumentcount++;
 	return instrumentcount-1;
 }
 
-/*_EXPORT*/ status_t Song::RemoveIns(uint8 l_ins)
+/*_EXPORT*/ status_t stSong::RemoveIns(uint8 l_ins)
 {
 	// om det är den sista
 	if (instrumentcount == 2) return JNG_ERROR;
@@ -1301,7 +1301,7 @@ Player* Song::GetPlayer(int i) {return p[i];}
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*_EXPORT*/ status_t Song::Optimize(){
+/*_EXPORT*/ status_t stSong::Optimize(){
 	// ta bort parts som ej används
 	int c;
 	for (c = partcount-1 ; c >=0 ; c--){
@@ -1322,7 +1322,7 @@ void ______________________________________(){};
 
 #define FIND int c = 0; while ( ( c < breakpcount ) && ( PAL > breakpoints[c].PAL ) ) c++;
 
-/*_EXPORT*/ uint8 Song::GetBreakPointIndex( uint32 PAL ){
+/*_EXPORT*/ uint8 stSong::GetBreakPointIndex( uint32 PAL ){
 	FIND
 	// check if exists
 	if ( c >= breakpcount ) return 0;
@@ -1331,12 +1331,12 @@ void ______________________________________(){};
 	return c;
 }
 
-/*_EXPORT*/ void Song::SetBreakPointByIndex( uint8 index, uint32 command ){
+/*_EXPORT*/ void stSong::SetBreakPointByIndex( uint8 index, uint32 command ){
 //	if ( index < breakpcount ) return;
 	breakpoints[index].command = command;
 }
 
-/*_EXPORT*/ uint32 Song::GetBreakPoint( uint32 PAL ){
+/*_EXPORT*/ uint32 stSong::GetBreakPoint( uint32 PAL ){
 	FIND
 
 	// check if exists
@@ -1346,7 +1346,7 @@ void ______________________________________(){};
 	return breakpoints[c].command;
 }
 
-/*_EXPORT*/ void Song::NewBreakPoint( uint32 PAL, uint32 command ){
+/*_EXPORT*/ void stSong::NewBreakPoint( uint32 PAL, uint32 command ){
 	puts("NewBP");
 	FIND
 
@@ -1369,7 +1369,7 @@ void ______________________________________(){};
 	breakpoints[c].command = command;
 }
 
-/*_EXPORT*/ void Song::RemoveBreakPoint( uint32 PAL ){
+/*_EXPORT*/ void stSong::RemoveBreakPoint( uint32 PAL ){
 	FIND
 
 	// check if exists

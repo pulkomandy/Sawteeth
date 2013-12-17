@@ -13,10 +13,10 @@ static int32 tf(void*);
 static int32 tf(void *p){	((stAiffWindow*)p)->Thread(); return 0; }
 
 #define H 40
-stAiffWindow::stAiffWindow(Song &copy_this, BFile &file):
+stAiffWindow::stAiffWindow(stSong &copy_this, BFile &file):
 	BWindow(BRect(10,10,200,10+H),"Export AIFF", B_MODAL_WINDOW_LOOK, B_NORMAL_WINDOW_FEEL,B_NOT_RESIZABLE | B_NOT_ZOOMABLE | B_ASYNCHRONOUS_CONTROLS )
 {
-	song = new Song(copy_this);
+	song = new stSong(copy_this);
 	f = file;
 
 	BBox *box = new BBox(BRect(0,0,191,H+1),"name");

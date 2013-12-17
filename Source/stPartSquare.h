@@ -7,12 +7,12 @@ Distributed under the terms of the MIT Licence. */
 #define ST_PART_SQUARE_H
 
 #include <InterfaceKit.h>
-#include "song.h"
+#include "stSong.h"
 
 class stPartSquare : public BView
 {
 public:
-	stPartSquare(Song* s,Channel *chan, uint16 index, int8 *transp,uint8 *part,uint8 *volume,BRect rect);
+	stPartSquare(stSong* s,Channel *chan, uint16 index, int8 *transp,uint8 *part,uint8 *volume,BRect rect);
 	~stPartSquare();
 
 	void	Update();
@@ -34,7 +34,7 @@ private:
 	void OpenInEditor();
 
 	Channel * ch;
-	Song *s;
+	stSong *s;
 	int8 *t;
 	uint8 *p;
 	uint8 *v;

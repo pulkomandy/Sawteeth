@@ -1,8 +1,8 @@
 /* Copyright 2001, Jonas Norberg
 Distributed under the terms of the MIT Licence. */
 
-#ifndef Song___H
-#define Song___H
+#ifndef stSong___H
+#define stSong___H
 
 #include "stdlib.h"
 #include "string.h"
@@ -18,15 +18,15 @@ Distributed under the terms of the MIT Licence. */
 class Player;
 
 
-class Song
+class stSong
 {
 friend class Player;
 friend class InsPly;
 public:
 
-	Song( const Song &s );
-	Song( txt &flat );
-	virtual ~Song();
+	stSong( const stSong &s );
+	stSong( txt &flat );
+	virtual ~stSong();
 
 	status_t	Load( txt &t);
 	status_t	InitCheck();

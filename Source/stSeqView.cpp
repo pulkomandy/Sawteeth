@@ -6,9 +6,9 @@ Distributed under the terms of the MIT Licence. */
 
 #include "stSeqView.h"
 #include "stMainWindow.h"
-#include "song.h"
+#include "stSong.h"
 
-stSeqView::stSeqView(Song *song, BRect frame) : 
+stSeqView::stSeqView(stSong *song, BRect frame) : 
 	BView(frame, "Channel",  B_FOLLOW_ALL_SIDES, B_FRAME_EVENTS | B_PULSE_NEEDED | B_WILL_DRAW | B_DRAW_ON_CHILDREN)
 {
 //	fprintf(stderr,"stSeqView::stSeqView()\n");

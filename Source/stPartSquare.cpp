@@ -4,10 +4,10 @@ Distributed under the terms of the MIT Licence. */
 #include <stdio.h> // remove this line
 #include "stPartSquare.h"
 #include "stChannelView.h"
-#include "song.h"
+#include "stSong.h"
 #include "stdefs.h"
 
-stPartSquare::stPartSquare(Song* song,Channel * chan, uint16 index ,int8 *transp,uint8 *part,uint8 *volume, BRect rect):
+stPartSquare::stPartSquare(stSong* song,Channel * chan, uint16 index ,int8 *transp,uint8 *part,uint8 *volume, BRect rect):
 	BView(rect,"partsquare", B_FOLLOW_NONE, B_WILL_DRAW )
 {
 	ch = chan;

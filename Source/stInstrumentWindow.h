@@ -8,7 +8,7 @@ Distributed under the terms of the MIT Licence. */
 #include "stTrackerControl.h"
 #include "stChannelView.h"
 #include "stMainWindow.h"
-#include "song.h"
+#include "stSong.h"
 
 class stTrackerView;
 

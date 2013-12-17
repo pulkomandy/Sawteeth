@@ -11,10 +11,10 @@ Distributed under the terms of the MIT Licence. */
 #include "stTrackerView.h"
 #include "stTrackerEntry.h"
 #include "stApp.h"
-#include "song.h"
+#include "stSong.h"
 
 stPartWindow::stPartWindow(stMainWindow *win, BPoint point, Part *part_to_edit,
-	Song *song)
+	stSong *song)
 	: BWindow(BRect(point, point), "",
 		B_FLOATING_WINDOW_LOOK,	B_FLOATING_SUBSET_WINDOW_FEEL,
 		B_NOT_H_RESIZABLE | B_AUTO_UPDATE_SIZE_LIMITS)

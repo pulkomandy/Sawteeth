@@ -5,12 +5,12 @@ Distributed under the terms of the MIT Licence. */
 #define ST_CHANNEL_VIEW_H
 
 #include "stPartSquare.h"
-#include "song.h"
+#include "stSong.h"
 
 class stChannelView : public BView
 {
 public:
-	stChannelView(Song *song, Channel *channel, BRect frame);
+	stChannelView(stSong *song, Channel *channel, BRect frame);
 	~stChannelView();
 	
 void	Draw(BRect frame);
@@ -44,7 +44,7 @@ private:
 	bool marking;
 	uint32 markstart;
 	uint32 focus;	// den partsquaren som är 
-	Song *s;
+	stSong *s;
 	Channel *chan;
 	int height;
 	stPartSquare *ps[CHNSTEPS];

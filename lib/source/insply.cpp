@@ -2,11 +2,11 @@
 Distributed under the terms of the MIT Licence. */
 
 #include "insply.h"
-#include "song.h"
+#include "stSong.h"
 #include <stdio.h>
 #include <math.h>
 
-InsPly::InsPly(Song *s)
+InsPly::InsPly(stSong *s)
 {
 	song = s;
 	vib=new lfo();

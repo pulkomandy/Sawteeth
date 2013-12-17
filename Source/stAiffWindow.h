@@ -7,13 +7,13 @@ Distributed under the terms of the MIT Licence. */
 #include <Window.h>
 
 #include <File.h>
-#include "song.h"
+#include "stSong.h"
 #include "stdefs.h"
 
 class stAiffWindow : public BWindow
 {
 public:
-	stAiffWindow(Song &copy_this, BFile &file);
+	stAiffWindow(stSong &copy_this, BFile &file);
 	status_t InitCheck();
 	~stAiffWindow();
 
@@ -23,7 +23,7 @@ private:
 	thread_id tid;
 	status_t init;
 	BFile f;
-	Song *song;
+	stSong *song;
 	BStatusBar *pb;
 };
 

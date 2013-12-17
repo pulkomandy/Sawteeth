@@ -8,7 +8,7 @@ Distributed under the terms of the MIT Licence. */
 #include <Message.h>
 #include <Clipboard.h>
 
-stChannelView::stChannelView(Song *song, Channel *channel, BRect frame) : BView(frame, "Channel",  B_FOLLOW_NONE, 0 )
+stChannelView::stChannelView(stSong *song, Channel *channel, BRect frame) : BView(frame, "Channel",  B_FOLLOW_NONE, 0 )
 {
 	m_z=1;
 	s = song;
