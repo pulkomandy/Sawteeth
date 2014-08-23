@@ -4,6 +4,7 @@ Distributed under the terms of the MIT Licence. */
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
+#include <inttypes.h> // for PRIu32
 
 #include "stSong.h"
 #include "txt.h"
@@ -24,7 +25,7 @@ void stSong::Init()
 	{
 		for (uint32 c = 0 ; c < CHN ; c++){
 			cmul[c]=((1-floor)/(float)c)+floor;
-			//printf("[%ld] == %f\n",c,cmul[c]);
+			//printf("[%" PRIu32 "] == %f\n",c,cmul[c]);
 		}
 	}
 
@@ -126,7 +127,7 @@ void stSong::Init()
 		chan[c].lloop = s.chan[c].lloop;
 		chan[c].rloop = s.chan[c].rloop;
 		if (1 > chan[c].len){
-			fprintf(stderr,"chan[%ld].len < 1\n",c);
+			fprintf(stderr,"chan[%" PRIu32 "].len < 1\n",c);
 			init=JNG_ERROR;
 			return;
 		}
@@ -159,14 +160,14 @@ void stSong::Init()
 	for (c=0; c < partcount; c++){
 		parts[c].sps = s.parts[c].sps;
 		if (parts[c].sps < 1){
-			fprintf(stderr,"parts[%ld].sps < 1\n",c);
+			fprintf(stderr,"parts[%" PRIu32 "].sps < 1\n",c);
 			init = JNG_ERROR;
 			return;
 		}
 
 		parts[c].len = s.parts[c].len;
 		if (parts[c].len < 1){
-			fprintf(stderr,"parts[%ld].len < 1\n",c);
+			fprintf(stderr,"parts[%" PRIu32 "].len < 1\n",c);
 			init = JNG_ERROR;
 			return;
 		}
@@ -233,7 +234,7 @@ void stSong::Init()
 	for (c = 1; c < instrumentcount; c++){
 		
 		ins[c].filterpoints = s.ins[c].filterpoints;
-		if (ins[c].filterpoints < 1){ fprintf(stderr,"ins[%ld].filterpoints < 1\n",c);init = JNG_ERROR;return;}
+		if (ins[c].filterpoints < 1){ fprintf(stderr,"ins[%" PRIu32 "].filterpoints < 1\n",c);init = JNG_ERROR;return;}
 
 #ifdef TARGET_EDITOR
 		ins[c].filter = (TimeLev*) CALLOC( INSPOINTS , sizeof(TimeLev));
@@ -246,7 +247,7 @@ void stSong::Init()
 		}
 		
 		ins[c].amppoints = s.ins[c].amppoints;
-		if (ins[c].amppoints < 1){ fprintf(stderr,"ins[%ld].amppoints < 1\n",c);init = JNG_ERROR;return;}
+		if (ins[c].amppoints < 1){ fprintf(stderr,"ins[%" PRIu32 "].amppoints < 1\n",c);init = JNG_ERROR;return;}
 
 #ifdef TARGET_EDITOR
 		ins[c].amp = (TimeLev*) CALLOC( INSPOINTS , sizeof(TimeLev));
@@ -267,11 +268,11 @@ void stSong::Init()
 		ins[c].pwmd =			s.ins[c].pwmd;
 		ins[c].res =			s.ins[c].res;
 		ins[c].sps =			s.ins[c].sps;
-		if (ins[c].sps < 1){ fprintf(stderr,"ins[%ld].sps < 1\n",c); init = JNG_ERROR; return;}
+		if (ins[c].sps < 1){ fprintf(stderr,"ins[%" PRIu32 "].sps < 1\n",c); init = JNG_ERROR; return;}
 		ins[c].len =			s.ins[c].len;
 		ins[c].loop =			s.ins[c].loop;
 
-      if (ins[c].len < 1){ fprintf(stderr,"ins[%ld].len < 1\n",c); init = JNG_ERROR; return;}
+      if (ins[c].len < 1){ fprintf(stderr,"ins[%" PRIu32 "].len < 1\n",c); init = JNG_ERROR; return;}
 		
 #ifdef TARGET_EDITOR
 		ins[c].steps = (InsStep*) CALLOC( INSSTEPS , sizeof(InsStep));
@@ -462,19 +463,19 @@ void stSong::Init()
 			chan[c].rloop = t.NextVal(2);
 			
 		if (1 > chan[c].len){
-			fprintf(stderr,"chan[%ld].len < 1\n",c);
+			fprintf(stderr,"chan[%" PRIu32 "].len < 1\n",c);
 			init=JNG_ERROR;
 			return init;
 		}
 
 		if (CHNSTEPS < chan[c].len){
-			fprintf(stderr,"chan[%d].len > %ld\n",chan[c].len,CHNSTEPS);
+			fprintf(stderr,"chan[%d].len > %" PRIu32 "\n",chan[c].len,CHNSTEPS);
 			init=JNG_ERROR;
 			return init;
 		}
 
 		if (chan[c].rloop >= chan[c].len){
-			fprintf(stderr,"chan[%ld].rloop >= chan[%ld].len\n",c,c);
+			fprintf(stderr,"chan[%" PRIu32 "].rloop >= chan[%" PRIu32 "].len\n",c,c);
 			chan[c].rloop = chan[c].len-1;
 		}
 
@@ -509,13 +510,13 @@ void stSong::Init()
 	for (c=0; c < partcount; c++){
 		parts[c].sps = t.NextVal();
 		if (parts[c].sps < 1){
-			fprintf(stderr,"parts[%ld].sps < 1\n",c);
+			fprintf(stderr,"parts[%" PRIu32 "].sps < 1\n",c);
 			return init = JNG_ERROR;
 		}
 
 		parts[c].len = t.NextVal();
 		if (parts[c].len < 1){
-			fprintf(stderr,"parts[%ld].len < 1\n",c);
+			fprintf(stderr,"parts[%" PRIu32 "].len < 1\n",c);
 			return init = JNG_ERROR;
 		}
 
@@ -537,7 +538,7 @@ void stSong::Init()
 	for (c = 0 ; c < channelcount ; c++){	
 		for (c1=0; c1 < chan[c].len; c1++){
 			if (chan[c].steps[c1].part >= partcount){
-				fprintf(stderr,"Warning Clamped a part at index %ld in channel %ld\n",c1,c);
+				fprintf(stderr,"Warning Clamped a part at index %" PRIu32 " in channel %" PRIu32 "\n",c1,c);
 				chan[c].steps[c1].part = partcount -1;
 			}
 		}
@@ -589,7 +590,7 @@ void stSong::Init()
 
 	for (c = 1; c < instrumentcount; c++)
 		if (JNG_OK !=ins[c].Load(t, st_version)){
-			fprintf(stderr,"instrumentcount load error ins[%ld]\n",c);
+			fprintf(stderr,"instrumentcount load error ins[%" PRIu32 "]\n",c);
 			return init = JNG_ERROR;
 		}
 
@@ -974,7 +975,7 @@ Player* stSong::GetPlayer(int i) {return p[i];}
 {
 // ----------------------
 // SoundPart
-//fprintf(stderr, "\nstSong::PartPlay(%p,%ld)\n",buff,SampleCount);
+//fprintf(stderr, "\nstSong::PartPlay(%p,%" PRIu32 ")\n",buff,SampleCount);
 
 	float *pbd = buff;
 
