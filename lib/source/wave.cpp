@@ -163,8 +163,8 @@ inline void Wave::FillSin(float *b, uint32 count, float amp)
 		uint32 pos = sincurrval >> 23; // plocka fram heltalsdelen
 		float dec = (float)(sincurrval & ((1<<23)-1)) / (float)((1<<23)-1); // bråkdelen
 		
-		float val0 = sint[pos];
-		float val1 = sint[pos+1];
+		float val0 = sint[pos & 0x1ff];
+		float val1 = sint[(pos & 0x1ff) + 1];
 		float val = ( val1 * dec ) + ( val0 * ((float)1.0 - dec));
 		*b = amp * val;
 		b++;
@@ -376,7 +376,7 @@ inline void Wave::FillSinU(float *b, uint32 count, float amp)
 		sincurrval += sinstep;
 		
 		uint32 pos = sincurrval >> 23; // plocka fram heltalsdelen
-		*b = amp * sint[pos];
+		*b = amp * sint[pos & 0x1ff];
 		b++;
 		amp+=astep;
 	}
@@ -392,7 +392,7 @@ inline void Wave::FillTriU(float *b, uint32 count, float amp)
 		sincurrval += sinstep;
 		
 		uint32 pos = sincurrval >> 23; // plocka fram heltalsdelen
-		*b = amp * trit[pos];
+		*b = amp * trit[pos & 0x1ff];
 		b++;
 		amp+=astep;
 	}
