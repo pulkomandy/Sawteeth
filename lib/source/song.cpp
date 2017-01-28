@@ -4,6 +4,7 @@ Distributed under the terms of the MIT Licence. */
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
+#define __STDC_FORMAT_MACROS
 #include <inttypes.h> // for PRIu32
 
 #include "stSong.h"

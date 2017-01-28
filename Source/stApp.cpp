@@ -7,7 +7,7 @@ Distributed under the terms of the MIT Licence. */
 
 #include <FilePanel.h>
 
-char defsong [] = {
+uchar defsong [] = {
 #include "Source/data/defaultsong.h"
 };
 
@@ -39,7 +39,7 @@ void stApp::AboutRequested()
 void stApp::ReadyToRun()
 {
 	if ( dropped ) return;
-	txt t(defsong,(int)sizeof(defsong));
+	txt t((char*)defsong,(int)sizeof(defsong));
 	stMainWindow *win=new stMainWindow(BRect(10,29,450,150),t);
 	win->Show();
 	win->Activate();
@@ -53,7 +53,7 @@ void stApp::MessageReceived(BMessage *message)
 		break;
 	case ST_NEW_SONG:
 	{
-		txt t(defsong,(int)sizeof(defsong));
+		txt t((char*)defsong,(int)sizeof(defsong));
 		stMainWindow *win = new stMainWindow(BRect(10,29,450,150),t);
 		win->Show();
 		win->Activate();
