@@ -97,7 +97,7 @@ void stSong::Init()
 	
 /////////////////////////////////////////////////////////////////////////////////// COPY COPY COPY
 
-	uint32 c, c1;
+	uint32_t c, c1;
 	
 	st_version = s.st_version;
 	spspal = s.spspal;
@@ -393,7 +393,7 @@ void stSong::Init()
 #ifdef TARGET_EDITOR
 	FreeSong();
 #endif
-	uint32 c, c1, num;
+	uint32_t c, c1, num;
 	if (JNG_OK!=t.InitCheck()){
 		init=JNG_ERROR;
 		return init;

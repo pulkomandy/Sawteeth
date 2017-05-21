@@ -25,8 +25,4 @@ const	int JNG_OK = 0;
 const	int JNG_ERROR = -1;
 const	int JNG_ERROR_VERSION = -2;
 
-#if __GNUC__ == 2
-#define PRIu32 "lu"
-#endif
-
 #endif
