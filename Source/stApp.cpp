@@ -98,7 +98,7 @@ void stApp::RefsReceived(BMessage *message)
 				stMainWindow *win = new stMainWindow(BRect(10,29,450,150),t);
 
 				status_t temp = win->InitCheck();
-				if (JNG_OK != temp){
+				if (JNG_OK != temp) {
 					char tempc[512];
 					sprintf(tempc,
 						"ERROR\n\nLoader version = %.2f < Song version = %.2f\n\nDownload newer software at:\nwww.acc.umu.se/~bedev/software/sawteeth",
@@ -111,15 +111,16 @@ void stApp::RefsReceived(BMessage *message)
 							"Not Valid",tempc,
 							"OK",0,0,B_WIDTH_AS_USUAL,B_STOP_ALERT);
 						alert->Go();
-					}else{
+					} else {
 						BAlert *alert=new BAlert(
 							"Not Valid","ERROR\n\nNot a valid sawteeth song",
 							"OK",0,0,B_WIDTH_AS_USUAL,B_STOP_ALERT);
 						alert->Go();
 					}
-				}else
+				} else {
 					win->Show();
 					win->Activate();
+				}
 			}
 		} 
 	} 
