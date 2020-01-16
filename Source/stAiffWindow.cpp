@@ -113,8 +113,17 @@ void stAiffWindow::Thread()
 		for (int c = 0 ; c< (2 * sbufs); c++){
 
 			//max, min and clipping
-			if (sbuf[c] > max) max = sbuf[c];if (sbuf[c] < min) min = sbuf[c];
-			if (sbuf[c] > 0.999) sbuf[c] = 0.999; else if (sbuf[c] < -0.999) sbuf[c] = -0.999;
+			if (sbuf[c] > max)
+				max = sbuf[c];
+			if (sbuf[c] < min)
+				min = sbuf[c];
+
+			if (sbuf[c] > 0.999) {
+				sbuf[c] = 0.999;
+			} else if (sbuf[c] < -0.999) {
+				sbuf[c] = -0.999;
+			}
+
 			int16 tmp = (int16)(30000.0 * sbuf[c]);
 			
 			obuf[c*2] =		tmp >> 8;
