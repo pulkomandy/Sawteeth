@@ -115,7 +115,6 @@ void stAiffWindow::Thread()
 			//max, min and clipping
 			if (sbuf[c] > max)
 				max = sbuf[c];
-
 			if (sbuf[c] < min)
 				min = sbuf[c];
 
