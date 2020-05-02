@@ -17,7 +17,7 @@ stBmView::stBmView(BRect rect, BBitmap *bm):
 	SetLowColor(0,0,0);
 	SetHighColor(255,255,255);
 
-	sprintf(verstr,"%.2f",(float)ST_CURRENT_EDITOR_VERSION/1000.0);
+	sprintf(verstr,"%.1f",(float)ST_CURRENT_EDITOR_VERSION/1000.0);
 }
 void stBmView::Draw(BRect r)
 {

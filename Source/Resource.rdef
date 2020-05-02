@@ -33,14 +33,14 @@ resource app_signature "application/x-vnd.Jonas_Norberg-Sawteeth";
 
 resource app_version {
 	major  = 1,
-	middle = 3,
+	middle = 4,
 	minor  = 0,
 
 	variety = B_APPV_DEVELOPMENT,
 	internal = 0,
 
 	short_info = "Softsynth",
-	long_info = "Sawteeth is a softsynth / tracker\n© Jonas Norberg 2000 - 2001\n© Adrien Destugues 2010-2013"
+	long_info = "Sawteeth is a softsynth / tracker\n© Jonas Norberg 2000 - 2001\n© Adrien Destugues 2010-2020"
 };
 
 resource app_flags B_SINGLE_LAUNCH;
