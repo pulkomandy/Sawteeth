@@ -7,8 +7,9 @@ Distributed under the terms of the MIT Licence. */
 #include "stSong.h"
 #include "stdefs.h"
 
-stPartSquare::stPartSquare(stSong* song,Channel * chan, uint16 index ,int8 *transp,uint8 *part,uint8 *volume, BRect rect):
-	BView(rect,"partsquare", B_FOLLOW_NONE, B_WILL_DRAW )
+stPartSquare::stPartSquare(stSong* song,Channel * chan, uint16 index,
+	int8 *transp, uint8 *part, uint8 *volume, BRect rect):
+	BView(rect,"partsquare", B_FOLLOW_NONE, B_WILL_DRAW | B_NAVIGABLE)
 {
 	ch = chan;
 	s = song;
@@ -172,6 +173,7 @@ void	stPartSquare::MouseDown(BPoint)
 
 void stPartSquare::MessageReceived(BMessage *message)
 {
+	BView::MessageReceived(message);
 	Window()->DetachCurrentMessage();
 	Window()->PostMessage(message);
 }
