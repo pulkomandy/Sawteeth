@@ -39,11 +39,7 @@ stsp::stsp(txt &flat):stSong(flat)
 	media_raw_audio_format af = {	44100,
 									2,
 									media_raw_audio_format::B_AUDIO_FLOAT,
-#ifdef __INTEL__
-									B_MEDIA_LITTLE_ENDIAN,
-#else
-									B_MEDIA_BIG_ENDIAN,
-#endif
+									B_MEDIA_HOST_ENDIAN,
 									4096 };
 	player = new BSoundPlayer(&af, "SawTeeth", BufferProc, NULL, this); 
 }
