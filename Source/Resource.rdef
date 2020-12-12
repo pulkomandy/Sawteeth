@@ -34,7 +34,7 @@ resource app_signature "application/x-vnd.Jonas_Norberg-Sawteeth";
 resource app_version {
 	major  = 1,
 	middle = 4,
-	minor  = 0,
+	minor  = 1,
 
 	variety = B_APPV_DEVELOPMENT,
 	internal = 0,
