@@ -6,7 +6,6 @@ Distributed under the terms of the MIT Licence. */
 
 #include "ins_part_channel.h"
 #include "txt.h"
-#include "st_version.h"
 #include "stlimits.h"
 
 Ins::Ins(){

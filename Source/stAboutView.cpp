@@ -2,12 +2,14 @@
 Distributed under the terms of the MIT Licence. */
 
 #include <Application.h>
+#include <AppFileInfo.h>
+#include <File.h>
+#include <Roster.h>
 #include <Screen.h>
 #include <Window.h>
 #include <stdio.h>
 
 #include "stAboutView.h"
-#include "st_version.h"
 
 stBmView::stBmView(BRect rect, BBitmap *bm):
 	BView(rect,"name", B_FOLLOW_NONE , B_WILL_DRAW )
@@ -17,12 +19,26 @@ stBmView::stBmView(BRect rect, BBitmap *bm):
 	SetLowColor(0,0,0);
 	SetHighColor(255,255,255);
 
-	sprintf(verstr,"%.1f",(float)ST_CURRENT_EDITOR_VERSION/1000.0);
+	app_info info;
+	be_app->GetAppInfo(&info);
+	BFile file(&info.ref, B_READ_ONLY);
+	BAppFileInfo appMime(&file);
+	version_info versionInfo;
+	if (appMime.GetVersionInfo(&versionInfo, B_APP_VERSION_KIND) == B_OK) {
+		if (versionInfo.major == 0 && versionInfo.middle == 0
+			&& versionInfo.minor == 0) {
+			return;
+		}
+	
+		sprintf(verstr,"%" B_PRId32 ".%" B_PRId32 ".%" B_PRId32,
+			versionInfo.major, versionInfo.middle, versionInfo.minor);
+	}
+
 }
 void stBmView::Draw(BRect r)
 {
 	DrawBitmap(m_bm, r, r);
-	DrawString(verstr,	BPoint(1,8));
+	DrawString(verstr,	BPoint(1, 10));
 }
 void stBmView::MouseDown(BPoint)
 {

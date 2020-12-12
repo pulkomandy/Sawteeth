@@ -11,6 +11,9 @@ Distributed under the terms of the MIT Licence. */
 #include "txt.h"
 #include "player.h"
 
+// Remember to update this if the file format changes!
+#define ST_CURRENT_FILE_VERSION 1200
+
 void *CALLOC(int s1, int s2);
 void *CALLOC(int s1, int s2)
 {
