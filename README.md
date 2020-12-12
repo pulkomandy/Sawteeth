@@ -40,3 +40,18 @@ Features
 Working with Sawteeth
 -------------------------------
 http://www.linusakesson.net/music/elements/index.php
+
+Compiling Sawteeth
+------------------
+
+You need cmake and make installed, as well as some version of gcc and the Haiku
+development header:
+
+    pkgman install gcc gcc_syslibs haiku_devel make cmake
+
+Then you can build this way:
+
+    mkdir build
+    cd build
+    cmake ..
+    make
